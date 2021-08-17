@@ -3,7 +3,9 @@ package br.com.nutriCenter.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 @Entity
+@Table(name ="tb_paciente")
 public class Paciente extends Usuario {
 
 	private static final long serialVersionUID = 1L;

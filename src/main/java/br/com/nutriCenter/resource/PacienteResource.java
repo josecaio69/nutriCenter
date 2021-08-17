@@ -29,15 +29,16 @@ public class PacienteResource {
 		return servico.findById(id);
 	}
 
+	@GetMapping("/pacientes")
+	public List<Paciente> findAll() {
+		return servico.findAll();
+	}
+
 	@PostMapping("/paciente")
 	public Paciente create(@RequestBody Paciente paciente) {
 		return servico.create(paciente);
 	}
 
-	@GetMapping("/pacientes")
-	public List<Paciente> findAll() {
-		return servico.findAll();
-	}
 
 	@PutMapping("/paciente")
 	public Paciente update(@RequestBody Paciente paciente) {
