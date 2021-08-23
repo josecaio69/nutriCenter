@@ -30,6 +30,9 @@ public class NutricionistaService {
 	public void delete(Nutricionista nutricionista) {
 		this.repositorio.delete(nutricionista);
 	}
+	public void deleteAll() {
+		this.repositorio.deleteAll();
+	}
 	
 	public Nutricionista update(Nutricionista nutricionista) {
 		return this.repositorio.save(nutricionista);

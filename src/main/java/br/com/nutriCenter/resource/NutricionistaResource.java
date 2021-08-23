@@ -42,6 +42,11 @@ public class NutricionistaResource {
 	public void delete(@RequestBody Nutricionista nutricionista) {
 		 this.servico.delete(nutricionista);
 	}
+	/*DELETE removendo todos os objetos*/
+	@DeleteMapping("/nutricionistasDel")
+	public void deleteAll() {
+		this.servico.deleteAll();
+	}
 	/*PUT realizando o update das informações de um objeto*/
 	@PutMapping("/nutricionista")
 	public Nutricionista update (@RequestBody Nutricionista nutricionista) {
