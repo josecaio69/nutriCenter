@@ -24,6 +24,7 @@ public abstract class Usuario implements Serializable {
 	private String nome;
 	@Column(name = "sobre_nome")
 	private String sobreNome;
+	//@JsonFormat(pattern = "dd-mm-YYYY")
 	@Column(name = "data_nascimento")
 	private Date dataNasc;
 	@Column(name = "CPF")

@@ -3,13 +3,14 @@ package br.com.nutriCenter.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
 @Entity
-@Table(name ="tb_nutricionista")
+@Table(name = "tb_nutricionista")
 public class Nutricionista extends Usuario {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	@Column(name = "crn")
+
+	@Column(name = "crn", nullable = false, unique = true)
 	private String CRN;
 	@Column(name = "carga_horaria")
 	private int cargaHoraria;
@@ -22,8 +23,8 @@ public class Nutricionista extends Usuario {
 		return CRN;
 	}
 
-	public void setCRN(String cRN) {
-		CRN = cRN;
+	public void setCRN(String crn) {
+		CRN = crn;
 	}
 
 	public int getCargaHoraria() {
