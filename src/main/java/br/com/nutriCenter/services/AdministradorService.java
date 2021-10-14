@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.nutriCenter.exception.ObjectNotFoundException;
 import br.com.nutriCenter.model.Administrador;
 import br.com.nutriCenter.repository.AdministradorRepository;
 
@@ -15,24 +16,53 @@ public class AdministradorService {
 	@Autowired
 	private AdministradorRepository repositorio;
 
-	public void create(Administrador adm) {
-		repositorio.save(adm);
+	public Administrador create(Administrador adm) throws Exception {
+		return this.repositorio.save(adm);
 	}
 
-	public List<Administrador> findAll() {
+	public List<Administrador> findAll() throws Exception {
 		return repositorio.findAll();
 	}
 
-	public Optional<Administrador> findById(long id) {
-		return repositorio.findById(id);
+	public Optional<Administrador> findById(long id) throws Exception {
+		if (this.isExist(id)) {
+			return this.repositorio.findById(id);
+		} else {
+			throw new ObjectNotFoundException();
+		}
 	}
 
-	public void delete(Administrador adm) {
-		repositorio.delete(adm);
+	public void delete(Administrador adm) throws Exception {
+		if (this.isExist(adm.getId())) {
+			this.repositorio.delete(adm);
+		} else {
+			throw new ObjectNotFoundException();
+		}
 	}
 
-	public Administrador update(Administrador adm) {
-		return repositorio.save(adm);
+	public void deleteById(long id) throws Exception {
+		if (this.isExist(id)) {
+			this.repositorio.deleteById(id);
+		} else {
+			throw new ObjectNotFoundException();
+		}
+	}
+
+	public Administrador update(Administrador adm) throws Exception {
+		if (this.isExist(adm.getId())) {
+			return repositorio.save(adm);
+		} else {
+			throw new ObjectNotFoundException();
+		}
+	}
+
+	/* Verificar se um objeto adm existe no BD */
+	private boolean isExist(long id) throws Exception {
+		if (this.findById(id).isPresent()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
