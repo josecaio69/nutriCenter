@@ -38,9 +38,9 @@ public class NutricionistaResource {
 		return this.servico.findById(id);
 	}
 	/*DELETE removendo um objeto do banco*/
-	@DeleteMapping("/nutricionista")
-	public void delete(@RequestBody Nutricionista nutricionista) {
-		 this.servico.delete(nutricionista);
+	@DeleteMapping("/nutricionista/{id}")
+	public void delete(@PathVariable(value="id")long id) {
+		 this.servico.delete(id);
 	}
 	/*DELETE removendo todos os objetos*/
 	@DeleteMapping("/nutricionistasDel")

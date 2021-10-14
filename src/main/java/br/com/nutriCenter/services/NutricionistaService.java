@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import br.com.nutriCenter.model.Nutricionista;
 import br.com.nutriCenter.repository.NutricionistaRepository;
@@ -27,8 +28,8 @@ public class NutricionistaService {
 		return this.repositorio.findById(id);
 	}
 	
-	public void delete(Nutricionista nutricionista) {
-		this.repositorio.delete(nutricionista);
+	public void delete(Long id) {
+		this.repositorio.deleteById(id);
 	}
 	public void deleteAll() {
 		this.repositorio.deleteAll();
