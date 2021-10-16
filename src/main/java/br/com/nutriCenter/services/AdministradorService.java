@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import br.com.nutriCenter.exception.ObjectNotFoundException;
 import br.com.nutriCenter.model.Administrador;
 import br.com.nutriCenter.repository.AdministradorRepository;
+/**
+ * @author José Caio
+ *
+ */
 
 @Service
 public class AdministradorService {
@@ -55,10 +59,26 @@ public class AdministradorService {
 			throw new ObjectNotFoundException();
 		}
 	}
+	
+	public Administrador updateById(long id,Administrador adm) throws Exception {
+		if (this.isExist(id)) {
+			var upAdm = this.repositorio.findById(id).get();
+			upAdm.setNome(adm.getNome());
+			upAdm.setSobreNome(adm.getSobreNome());
+			upAdm.setEmail(adm.getEmail());
+			upAdm.setCpf(adm.getCpf());
+			upAdm.setDataNasc(adm.getDataNasc());
+			upAdm.setCell(adm.getCell());
+			upAdm.setCargaHoraria(adm.getCargaHoraria());
+			return repositorio.save(upAdm);
+		} else {
+			throw new ObjectNotFoundException();
+		}
+	}
 
 	/* Verificar se um objeto adm existe no BD */
 	private boolean isExist(long id) throws Exception {
-		if (this.findById(id).isPresent()) {
+		if (!this.repositorio.findById(id).isEmpty()) {
 			return true;
 		} else {
 			return false;

@@ -6,6 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.nutriCenter.model.Nutricionista;
 
+/**
+ * @author José Caio
+ *
+ */
+
 public interface NutricionistaRepository extends JpaRepository<Nutricionista, Long>{
 	
 	List<Nutricionista> findByNomeContaining(String nome);

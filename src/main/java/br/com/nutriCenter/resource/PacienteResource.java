@@ -18,15 +18,20 @@ import br.com.nutriCenter.exception.ObjectNotFoundException;
 import br.com.nutriCenter.model.Paciente;
 import br.com.nutriCenter.services.PacienteService;
 
+/**
+ * @author José Caio
+ *
+ */
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/paciente")
 public class PacienteResource {
 
 	@Autowired
 	private PacienteService servico;
 
 	/* GET paciente by Id */
-	@GetMapping("/paciente/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Paciente> findById(@PathVariable long id) {
 		try {
 			Paciente patient = this.servico.findById(id).get();
@@ -39,7 +44,7 @@ public class PacienteResource {
 		}
 	}
 
-	@GetMapping("/pacientes")
+	@GetMapping("/getAll")
 	public ResponseEntity<List<Paciente>> findAll() {
 		try {
 			return new ResponseEntity<>(this.servico.findAll(), HttpStatus.OK);
@@ -48,7 +53,7 @@ public class PacienteResource {
 		}
 	}
 
-	@PostMapping("/paciente")
+	@PostMapping()
 	public ResponseEntity<Paciente> create(@RequestBody Paciente paciente) {
 		try {
 			Paciente patient = this.servico.create(paciente);
@@ -58,22 +63,58 @@ public class PacienteResource {
 		}
 	}
 
-	@PutMapping("/paciente")
+	@PutMapping()
 	public ResponseEntity<Paciente> update(@RequestBody Paciente paciente) {
 		try {
 			Paciente patient = this.servico.update(paciente);
 			return new ResponseEntity<>(patient, HttpStatus.OK);
-		} catch (Exception e) {
+		} catch (ObjectNotFoundException error) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (Exception erro) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	@DeleteMapping("/paciente")
+	@PutMapping("/{id}")
+	public ResponseEntity<Paciente> updateById(@PathVariable(value = "id") long id, @RequestBody Paciente paciente) {
+		try {
+			Paciente patient = this.servico.updateById(id, paciente);
+			return new ResponseEntity<>(patient, HttpStatus.OK);
+		} catch (ObjectNotFoundException error) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (Exception erro) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@DeleteMapping()
 	public ResponseEntity<Paciente> delete(@RequestBody Paciente paciente) {
 		try {
 			this.servico.delete(paciente);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} catch (Exception e) {
+		} catch (Exception error) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Paciente> deleteById(@PathVariable(value = "id") long id) {
+		try {
+			this.servico.deleteById(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (ObjectNotFoundException error) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (Exception erro) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@DeleteMapping("/delAll")
+	public ResponseEntity<Paciente> deleteAll() {
+		try {
+			this.servico.deleteAll();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception error) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

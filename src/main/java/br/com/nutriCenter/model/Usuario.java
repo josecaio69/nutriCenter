@@ -10,6 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+/**
+ * @author José Caio
+ *
+ */
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)

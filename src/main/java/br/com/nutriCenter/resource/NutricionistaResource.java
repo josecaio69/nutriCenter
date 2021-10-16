@@ -18,15 +18,20 @@ import br.com.nutriCenter.exception.ObjectNotFoundException;
 import br.com.nutriCenter.model.Nutricionista;
 import br.com.nutriCenter.services.NutricionistaService;
 
+/**
+ * @author José Caio
+ *
+ */
+
 @RestController()
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/nutricionista")
 public class NutricionistaResource {
 
 	@Autowired
 	private NutricionistaService servico;
 
 	/* POST inserindo um objeto no banco de dados */
-	@PostMapping("/nutricionista")
+	@PostMapping()
 	public ResponseEntity<Nutricionista> create(@RequestBody Nutricionista nutricionista) {
 		try {
 			Nutricionista profissionalDeNutricao = this.servico.createNutricionista(nutricionista);
@@ -37,7 +42,7 @@ public class NutricionistaResource {
 	}
 
 	/* GET listando todos os objetos do banco */
-	@GetMapping("/nutricionistas")
+	@GetMapping("getAll")
 	public ResponseEntity<List<Nutricionista>> findAll() {
 		try {
 			return new ResponseEntity<>(this.servico.findAll(), HttpStatus.OK);
@@ -47,7 +52,7 @@ public class NutricionistaResource {
 	}
 
 	/* GET buscando um objeto pelo seu identificador */
-	@GetMapping("/nutricionista/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Nutricionista> findById(@PathVariable(value = "id") long id) {
 		try {
 			Nutricionista profissionalDeNutricao = this.servico.findById(id).get();
@@ -60,7 +65,7 @@ public class NutricionistaResource {
 	}
 
 	/* DELETE removendo um objeto do banco */
-	@DeleteMapping("/nutricionista")
+	@DeleteMapping()
 	public ResponseEntity<Nutricionista> delete(@RequestBody Nutricionista nutricionista) {
 		try {
 			this.servico.delete(nutricionista);
@@ -73,7 +78,7 @@ public class NutricionistaResource {
 	}
 
 	/* DELETE removendo todos os objetos */
-	@DeleteMapping("/nutricionistasDel")
+	@DeleteMapping("/delAll")
 	public ResponseEntity<?> deleteAll() {
 		try {
 			this.servico.deleteAll();
@@ -84,7 +89,7 @@ public class NutricionistaResource {
 	}
 
 	/* PUT realizando o update das informações de um objeto */
-	@PutMapping("/nutricionista")
+	@PutMapping()
 	public ResponseEntity<Nutricionista> update(@RequestBody Nutricionista nutricionista) {
 		try {
 			this.servico.update(nutricionista);
@@ -98,7 +103,7 @@ public class NutricionistaResource {
 	}
 
 	/* PUT update pelo ID do objeto */
-	@PutMapping("/nutricionista/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Nutricionista> updatePeloId(@PathVariable(value = "id") long id,
 			@RequestBody Nutricionista nutricionista) {
 		try {

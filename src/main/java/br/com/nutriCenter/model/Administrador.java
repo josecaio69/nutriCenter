@@ -3,6 +3,10 @@ package br.com.nutriCenter.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+/**
+ * @author José Caio
+ *
+ */
 
 @Entity
 @Table(name ="tb_admin")

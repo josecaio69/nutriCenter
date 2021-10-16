@@ -1,9 +1,13 @@
 package br.com.nutriCenter.model;
-
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+/**
+ * @author José Caio
+ *
+ */
+
 @Entity
 @Table(name ="tb_paciente")
 public class Paciente extends Usuario {

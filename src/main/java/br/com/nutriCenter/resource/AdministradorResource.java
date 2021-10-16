@@ -18,15 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.nutriCenter.exception.ObjectNotFoundException;
 import br.com.nutriCenter.model.Administrador;
 import br.com.nutriCenter.services.AdministradorService;
+/**
+ * @author José Caio
+ *
+ */
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/admin")
 public class AdministradorResource {
 
 	@Autowired
 	private AdministradorService servico;
 
-	@PostMapping("/admin")
+	@PostMapping()
 	public ResponseEntity<Administrador> create(@RequestBody Administrador adm) {
 		try {
 			Administrador newAdm = this.servico.create(adm);
@@ -36,7 +40,7 @@ public class AdministradorResource {
 		}
 	}
 
-	@GetMapping("/admins")
+	@GetMapping("getAll")
 	public ResponseEntity<List<Administrador>> findAll() {
 		try {
 			List<Administrador> list = this.servico.findAll();
@@ -46,7 +50,7 @@ public class AdministradorResource {
 		}
 	}
 
-	@GetMapping("/admin/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Optional<Administrador>> findById(@PathVariable(value = "id") long id) {
 		try {
 			var adm = this.servico.findById(id);
@@ -58,7 +62,7 @@ public class AdministradorResource {
 		}
 	}
 
-	@DeleteMapping("/admin")
+	@DeleteMapping()
 	public ResponseEntity<Administrador> delete(@RequestBody Administrador adm) {
 		try {
 			this.servico.delete(adm);
@@ -70,7 +74,7 @@ public class AdministradorResource {
 		}
 	}
 
-	@DeleteMapping("/admin/{id}")
+	@DeleteMapping("{id}")
 	public ResponseEntity<Administrador> deletePeloId(@PathVariable(value = "id") long id) {
 		try {
 			this.servico.deleteById(id);
@@ -82,10 +86,23 @@ public class AdministradorResource {
 		}
 	}
 
-	@PutMapping("/admin")
+	@PutMapping()
 	public ResponseEntity<Administrador> update(@RequestBody Administrador adm) {
 		try {
 			this.servico.update(adm);
+			return new ResponseEntity<>(adm, HttpStatus.OK);
+		} catch (ObjectNotFoundException error) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (Exception erro) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<Administrador> updateById(@PathVariable(value = "id") long id,
+			@RequestBody Administrador adm) {
+		try {
+			this.servico.updateById(id, adm);
 			return new ResponseEntity<>(adm, HttpStatus.OK);
 		} catch (ObjectNotFoundException error) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

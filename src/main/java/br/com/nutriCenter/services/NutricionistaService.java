@@ -10,6 +10,11 @@ import br.com.nutriCenter.exception.ObjectNotFoundException;
 import br.com.nutriCenter.model.Nutricionista;
 import br.com.nutriCenter.repository.NutricionistaRepository;
 
+/**
+ * @author José Caio
+ *
+ */
+
 @Service
 public class NutricionistaService {
 
