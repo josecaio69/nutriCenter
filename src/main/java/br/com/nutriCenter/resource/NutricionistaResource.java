@@ -64,6 +64,19 @@ public class NutricionistaResource {
 		}
 	}
 
+	/* DELETE removendo um objeto do banco pelo ID */
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Nutricionista> deleteById(@PathVariable(value = "id") long id) {
+		try {
+			this.servico.deleteById(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (ObjectNotFoundException error) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (Exception erro) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	/* DELETE removendo um objeto do banco */
 	@DeleteMapping()
 	public ResponseEntity<Nutricionista> delete(@RequestBody Nutricionista nutricionista) {

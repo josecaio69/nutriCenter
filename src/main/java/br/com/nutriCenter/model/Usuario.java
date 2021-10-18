@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+
 /**
  * @author José Caio
  *
@@ -28,7 +29,6 @@ public abstract class Usuario implements Serializable {
 	private String nome;
 	@Column(name = "sobre_nome")
 	private String sobreNome;
-	//@JsonFormat(pattern = "dd-mm-YYYY")
 	@Column(name = "data_nascimento")
 	private Date dataNasc;
 	@Column(name = "CPF")
@@ -39,6 +39,16 @@ public abstract class Usuario implements Serializable {
 	private String cell;
 	@Column(name = "prioridade_de_acesso")
 	private int nivelDeAcesso;
+	@Column
+	private String genero;
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
 
 	public long getId() {
 		return id;

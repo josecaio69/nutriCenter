@@ -1,8 +1,13 @@
 package br.com.nutriCenter.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
+
 /**
  * @author José Caio
  *
@@ -18,6 +23,25 @@ public class Nutricionista extends Usuario {
 	private String CRN;
 	@Column(name = "carga_horaria")
 	private int cargaHoraria;
+	@ElementCollection(fetch = FetchType.LAZY)
+	private List<String> especializacoes;
+	private String especialidade;
+
+	public String getEspecialidade() {
+		return especialidade;
+	}
+
+	public void setEspecialidade(String especialidade) {
+		this.especialidade = especialidade;
+	}
+
+	public List<String> getEspecializacoes() {
+		return especializacoes;
+	}
+
+	public void setEspecializacoes(List<String> especializacoes) {
+		this.especializacoes = especializacoes;
+	}
 
 	public Nutricionista() {
 		super.setNivelDeAcesso(2);

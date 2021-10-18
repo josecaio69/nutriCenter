@@ -45,6 +45,14 @@ public class NutricionistaService {
 			this.repositorio.delete(nutricionista);
 		}
 	}
+	
+	public void deleteById(long id) throws Exception {
+		if (!this.repositorio.findById(id).isPresent()) {
+			throw new ObjectNotFoundException();
+		} else {
+			this.repositorio.deleteById(id);
+		}
+	}
 
 	public void deleteAll() throws Exception {
 		this.repositorio.deleteAll();
