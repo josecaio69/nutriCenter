@@ -31,15 +31,15 @@ public abstract class Usuario implements Serializable {
 	private String sobreNome;
 	@Column(name = "data_nascimento")
 	private Date dataNasc;
-	@Column(name = "CPF")
+	@Column(name = "CPF", nullable = false, unique = true)
 	private String cpf;
-	@Column(name = "email")
+	@Column(name = "email",nullable = false, unique = true)
 	private String email;
 	@Column(name = "celular")
 	private String cell;
 	@Column(name = "prioridade_de_acesso")
 	private int nivelDeAcesso;
-	@Column
+	@Column(name = "sexo")
 	private String genero;
 
 	public String getGenero() {
