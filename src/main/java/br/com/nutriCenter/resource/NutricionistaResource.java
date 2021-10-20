@@ -69,6 +69,7 @@ public class NutricionistaResource {
 	public ResponseEntity<Nutricionista> deleteById(@PathVariable(value = "id") long id) {
 		try {
 			this.servico.deleteById(id);
+	
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (ObjectNotFoundException error) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
