@@ -32,6 +32,7 @@ import br.com.nutriCenter.services.NutricionistaService;
 
 /**
  * @author José Caio
+ * @author Mateus Fernandes
  *
  */
 @RunWith(SpringRunner.class)
@@ -89,7 +90,6 @@ public class NutricionistaResourceTest {
 
 		when(this.nutricionistaService.findById(1L)).thenReturn(
 				generateNutricionista(1L, "mateus", "fernandes", "mateus@email.com", "masculino", "222-222-222-22"));
-
 		mockMvc.perform(get(urlBase + "/{id}", 1L).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
 	}
@@ -125,11 +125,11 @@ public class NutricionistaResourceTest {
 		when(this.nutricionistaService.findById(1L)).thenReturn(
 				generateNutricionista(1L, "mateus", "fernandes", "mateus@email.com", "masculino", "222-222-222-22"));
 
-		mockMvc.perform(get(urlBase + "/byName/{nome}", "mateus").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+		mockMvc.perform(get(urlBase + "/byName/{nome}", "mateus").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
 
 	}
-	
-	
+
 	private Optional<Nutricionista> generateNutricionista(long id, String nome, String sobrneome, String email,
 			String genero, String cpf) {
 
