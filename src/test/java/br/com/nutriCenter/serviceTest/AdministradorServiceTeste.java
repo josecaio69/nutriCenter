@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.util.Date;
 import java.util.Optional;
 
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,7 +46,7 @@ public class AdministradorServiceTeste {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		
+
 		admin = new Administrador();
 		admin.setCargaHoraria(1);
 		admin.setCell(null);
@@ -77,9 +76,9 @@ public class AdministradorServiceTeste {
 
 	}
 
-	
-	/* Teste do Deletar Nutricionista Pelo ID 
-	 * Está com erro*/
+	/*
+	 * Teste do Deletar Nutricionista Pelo ID Está com erro
+	 */
 
 	@Test
 	public void deletarNutricionistaPeloIdTeste() throws Exception {
@@ -89,13 +88,8 @@ public class AdministradorServiceTeste {
 		assertFalse(!administrador.isPresent());
 	}
 
-	
-	
-	
-	
-	
 	/*
-	 * Teste do Deletar administrador 
+	 * Teste do Deletar administrador
 	 */
 
 	@Test
@@ -108,7 +102,7 @@ public class AdministradorServiceTeste {
 	}
 
 	/*
-	 * Teste do Atualizar Administrador Pelo ID 
+	 * Teste do Atualizar Administrador Pelo ID
 	 */
 
 	@Test
