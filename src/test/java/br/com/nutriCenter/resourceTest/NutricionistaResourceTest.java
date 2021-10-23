@@ -52,6 +52,7 @@ public class NutricionistaResourceTest {
 	private Nutricionista nutricionista;
 
 	private final String urlBase = "/api/nutricionista";
+	
 
 	private ObjectMapper objectMapper;
 

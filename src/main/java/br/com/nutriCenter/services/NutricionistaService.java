@@ -23,6 +23,7 @@ public class NutricionistaService {
 
 	public Nutricionista createNutricionista(Nutricionista entidade) {
 		return repositorio.save(entidade);
+	
 	}
 
 	public List<Nutricionista> findAll() throws Exception {
