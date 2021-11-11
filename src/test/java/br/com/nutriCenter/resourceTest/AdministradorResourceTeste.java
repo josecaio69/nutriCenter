@@ -8,6 +8,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -55,54 +58,114 @@ public class AdministradorResourceTeste {
 	private ObjectMapper objectMapper;
 
 	@BeforeEach
-	public void setUp() {
-		objectMapper = new ObjectMapper();
-		administrador = new Administrador();
+	public void setUp() throws ParseException {
 
-		administrador.setId(1L);
-		administrador.setNome("MAteus");
-		administrador.setSobreNome("Fernandes");
-		administrador.setEmail("mateus@email.com");
-		administrador.setGenero("Masculino");
+		objectMapper = new ObjectMapper();
+		Administrador administrador;
+		administrador = generateAdministrador(1L, "Mateus", "Fernandes", "mateus@email.com", "Masculino", 2, 2,
+				"999475005");
 
 	}
 
 	/* Test do GetAll de Administradores */
-
 	@Test
 	public void deveRetornarSucessoAoListarTodosOsAdministradores() throws Exception {
 		mockMvc.perform(get(urlBase + "/getAll").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 	}
 
 	/* Teste do get por id de Administrador */
-	
 	@Test
-	public void deveRetornarsucessoAoBuscarAdministradorPeloIdTeste() throws Exception{
-		when(this.administradorService.findById(1L)).thenReturn
-		(generateAdministrador(1L, "Joao", "Paulo", "Joao@email.com", "Masculino", "333-333-333-33"));
+	public void deveRetornarsucessoAoBuscarAdministradorPeloIdTeste() throws Exception {
+		when(this.administradorService.findById(1L)).thenReturn(
+				generateOptionalAdministrador(1L, "Joao", "Paulo", "Joao@email.com", "Masculino", 1, 1, "999475005"));
 		mockMvc.perform(get(urlBase + "/{id}", 1L).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-		
+
 	}
 
-	
 	/* Test Post inserir um novo Administrador */
-
 	@Test
 	public void deveRetornarSucessoAoTentarAdicionarUmNovoAdministradorTest() throws Exception {
+
+		Administrador administrador;
+		administrador = generateAdministrador(1L, "Mateus", "Fernandes", "mateus@email.com", "Masculino", 2, 2,
+				"999475005");
 		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(administrador))
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
 	}
-	
 
-	
+	/* Test tentando cadastrar um administrador sem o atributo nome */
+	@Test
+	public void deveRetornarErroAoTentarCadastrarSemONomeTeste() throws Exception {
+
+		Administrador administrador;
+		administrador = generateAdministrador(1L, "", "Fernandes", "mateus@email.com", "Masculino", 2, 2, "999475005");
+		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(administrador))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+
+	/* Test tentando cadastrar um administrador sem o atributo Sobrenome */
+	@Test
+	public void deveRetornarErroAoTentarCadastrarSemOSobreNomeTeste() throws Exception {
+
+		Administrador administrador;
+		administrador = generateAdministrador(1L, "Mateus", "", "mateus@email.com", "Masculino", 2, 2, "999475005");
+		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(administrador))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+
+	/* Test tentando cadastrar um administrador com o atributo email invalido */
+	@Test
+	public void deveRetornarErroAoTentarCadastrarComEmailInvalidoTeste() throws Exception {
+		Administrador administrador;
+		administrador = generateAdministrador(1L, "Mateus", "", "mateus.com", "Masculino", 2, 2, "999475005");
+
+		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(administrador))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+
+	/* Test tentando cadastrar um administrador sem o atributo genero */
+	@Test
+	public void deveRetornarErroAoTentarCadastrarComGeneroNulloTeste() throws Exception {
+		Administrador administrador;
+		administrador = generateAdministrador(1L, "Mateus", "Fernandes", "mateus@email.com", "", 2, 2, "999475005");
+
+		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(administrador))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+
+	/* Test tentando cadastrar um administrador sem o atributo telefone */
+	@Test
+	public void deveRetornarErroAoTentarCadastrarSemOTelefoneTeste() throws Exception {
+		Administrador administrador;
+		administrador = generateAdministrador(1L, "Mateus", "Fernandes", "mateus@email.com", "", 2, 2, "");
+
+		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(administrador))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+
+	/* Test tentando cadastrar um administrador com um nome invalido */
+	@Test
+	public void deveRetornarErroAoTentarCadastrarComNomeInvalidoTeste() throws Exception {
+		Administrador administrador;
+		administrador = generateAdministrador(1L, "M", "Fernandes", "mateus@email.com", "Masculino", 2, 2, "999475005");
+
+		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(administrador))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+
 	/* Teste do delete por id de Administrador */
 	@Test
-	public void deveRetornarSucessoAoDeletarAdministradorPeloIdTeste() throws Exception{
+	public void deveRetornarSucessoAoDeletarAdministradorPeloIdTeste() throws Exception {
 		mockMvc.perform(delete(urlBase + "/{id}", 1L).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 	}
-	
-	
+
 	/* Test deletar um objeto do tipo Admistrador */
 	@Test
 
@@ -112,31 +175,48 @@ public class AdministradorResourceTeste {
 
 	}
 
-	
-	
-	
-	
+	private Optional<Administrador> generateOptionalAdministrador(long id, String nome, String sobrenome, String email,
+			String genero, int carga, int acesso, String cel) throws ParseException {
 
-	private Optional<Administrador> generateAdministrador(long id, String nome, String sobrenome, String email, String genero, String cpf) {
-		
-		Administrador admin = new Administrador();
-		admin.setId(id);
-		admin.setNome(nome);
-		admin.setSobreNome(sobrenome);
-		admin.setEmail(email);
-		admin.setGenero(genero);
-		
-		
-		return null;
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		Date data = formato.parse("23/11/2015");
+
+		objectMapper = new ObjectMapper();
+		administrador = new Administrador();
+
+		administrador.setId(id);
+		administrador.setNome(nome);
+		administrador.setSobreNome(sobrenome);
+		administrador.setEmail(email);
+		administrador.setGenero(genero);
+		administrador.setCargaHoraria(carga);
+		administrador.setNivelDeAcesso(acesso);
+		administrador.setDataNasc(data);
+		administrador.setCell(cel);
+
+		return Optional.ofNullable(administrador);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	private Administrador generateAdministrador(long id, String nome, String sobrenome, String email, String genero,
+			int carga, int acesso, String cel) throws ParseException {
+
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		Date data = formato.parse("23/11/2015");
+
+		objectMapper = new ObjectMapper();
+		administrador = new Administrador();
+
+		administrador.setId(id);
+		administrador.setNome(nome);
+		administrador.setSobreNome(sobrenome);
+		administrador.setEmail(email);
+		administrador.setGenero(genero);
+		administrador.setCargaHoraria(carga);
+		administrador.setNivelDeAcesso(acesso);
+		administrador.setDataNasc(data);
+		administrador.setCell(cel);
+
+		return administrador;
+	}
 
 }
