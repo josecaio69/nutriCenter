@@ -66,7 +66,6 @@ public class NutricionistaResourceTest {
 		nutricionista.setSobreNome("Araujo");
 		nutricionista.setEmail("jose@email.com.br");
 		nutricionista.setGenero("Masculino");
-		nutricionista.setCpf("111-111-111-11");
 
 	}
 
@@ -140,7 +139,6 @@ public class NutricionistaResourceTest {
 		nutri.setSobreNome(sobrneome);
 		nutri.setEmail(email);
 		nutri.setGenero(genero);
-		nutri.setCpf(cpf);
 
 		return Optional.ofNullable(nutri);
 

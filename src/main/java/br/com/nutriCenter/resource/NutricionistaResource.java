@@ -2,6 +2,8 @@ package br.com.nutriCenter.resource;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +34,7 @@ public class NutricionistaResource {
 
 	/* POST inserindo um objeto no banco de dados */
 	@PostMapping()
-	public ResponseEntity<Nutricionista> create(@RequestBody Nutricionista nutricionista) {
+	public ResponseEntity<Nutricionista> create(@RequestBody  @Valid Nutricionista nutricionista) {
 		try {
 			Nutricionista profissionalDeNutricao = this.servico.createNutricionista(nutricionista);
 			return new ResponseEntity<>(profissionalDeNutricao, HttpStatus.CREATED);
@@ -104,7 +106,7 @@ public class NutricionistaResource {
 
 	/* PUT realizando o update das informações de um objeto */
 	@PutMapping()
-	public ResponseEntity<Nutricionista> update(@RequestBody Nutricionista nutricionista) {
+	public ResponseEntity<Nutricionista> update(@RequestBody @Valid Nutricionista nutricionista) {
 		try {
 			this.servico.update(nutricionista);
 			return new ResponseEntity<>(HttpStatus.OK);
@@ -119,7 +121,7 @@ public class NutricionistaResource {
 	/* PUT update pelo ID do objeto */
 	@PutMapping("/{id}")
 	public ResponseEntity<Nutricionista> updatePeloId(@PathVariable(value = "id") long id,
-			@RequestBody Nutricionista nutricionista) {
+			@RequestBody @Valid Nutricionista nutricionista) {
 		try {
 			this.servico.updateById(id, nutricionista);
 			return new ResponseEntity<>(HttpStatus.OK);

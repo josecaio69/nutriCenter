@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.Optional;
 
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,7 +54,6 @@ public class NutricionistaServiceTest {
 		nutri.setCargaHoraria(10);
 		nutri.setNivelDeAcesso(2);
 		nutri.setCell("83 999475005");
-		nutri.setCpf("111.111.111-11");
 		nutri.setDataNasc(null);
 		nutri.setEmail("mateus@mateus");
 		nutri.setId(1L);
@@ -129,7 +127,6 @@ public class NutricionistaServiceTest {
 		nutri.setSobreNome(sobrneome);
 		nutri.setEmail(email);
 		nutri.setGenero(genero);
-		nutri.setCpf(cpf);
 
 		return nutri;
 

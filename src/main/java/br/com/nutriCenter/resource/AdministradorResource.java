@@ -3,6 +3,9 @@ package br.com.nutriCenter.resource;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +32,12 @@ public class AdministradorResource {
 
 	@Autowired
 	private AdministradorService servico;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@PostMapping()
-	public ResponseEntity<Administrador> create(@RequestBody Administrador adm) {
+	public ResponseEntity<Administrador> create(@RequestBody @Valid Administrador adm) {
 		try {
 			Administrador newAdm = this.servico.create(adm);
 			return new ResponseEntity<>(newAdm, HttpStatus.CREATED);
@@ -87,7 +93,7 @@ public class AdministradorResource {
 	}
 
 	@PutMapping()
-	public ResponseEntity<Administrador> update(@RequestBody Administrador adm) {
+	public ResponseEntity<Administrador> update(@RequestBody @Valid Administrador adm) {
 		try {
 			this.servico.update(adm);
 			return new ResponseEntity<>(adm, HttpStatus.OK);
@@ -100,7 +106,7 @@ public class AdministradorResource {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Administrador> updateById(@PathVariable(value = "id") long id,
-			@RequestBody Administrador adm) {
+			@RequestBody @Valid Administrador adm) {
 		try {
 			this.servico.updateById(id, adm);
 			return new ResponseEntity<>(adm, HttpStatus.OK);

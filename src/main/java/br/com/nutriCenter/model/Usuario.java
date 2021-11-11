@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author José Caio
@@ -25,20 +27,23 @@ public abstract class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	@NotBlank
 	@Column(name = "nome")
 	private String nome;
+	@NotBlank
 	@Column(name = "sobre_nome")
 	private String sobreNome;
 	@Column(name = "data_nascimento")
 	private Date dataNasc;
-	@Column(name = "CPF", nullable = false, unique = true)
-	private String cpf;
+	@Email
 	@Column(name = "email",nullable = false, unique = true)
 	private String email;
+	@NotBlank
 	@Column(name = "celular")
 	private String cell;
 	@Column(name = "prioridade_de_acesso")
 	private int nivelDeAcesso;
+	@NotBlank
 	@Column(name = "sexo")
 	private String genero;
 
@@ -80,14 +85,6 @@ public abstract class Usuario implements Serializable {
 
 	public void setDataNasc(Date dataNasc) {
 		this.dataNasc = dataNasc;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
 	}
 
 	public String getEmail() {

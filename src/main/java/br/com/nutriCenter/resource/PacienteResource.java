@@ -2,6 +2,8 @@ package br.com.nutriCenter.resource;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +56,7 @@ public class PacienteResource {
 	}
 
 	@PostMapping()
-	public ResponseEntity<Paciente> create(@RequestBody Paciente paciente) {
+	public ResponseEntity<Paciente> create(@RequestBody @Valid Paciente paciente) {
 		try {
 			Paciente patient = this.servico.create(paciente);
 			return new ResponseEntity<>(patient, HttpStatus.CREATED);
@@ -64,7 +66,7 @@ public class PacienteResource {
 	}
 
 	@PutMapping()
-	public ResponseEntity<Paciente> update(@RequestBody Paciente paciente) {
+	public ResponseEntity<Paciente> update(@RequestBody @Valid Paciente paciente) {
 		try {
 			Paciente patient = this.servico.update(paciente);
 			return new ResponseEntity<>(patient, HttpStatus.OK);
@@ -76,7 +78,7 @@ public class PacienteResource {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Paciente> updateById(@PathVariable(value = "id") long id, @RequestBody Paciente paciente) {
+	public ResponseEntity<Paciente> updateById(@PathVariable(value = "id") long id, @RequestBody @Valid Paciente paciente) {
 		try {
 			Paciente patient = this.servico.updateById(id, paciente);
 			return new ResponseEntity<>(patient, HttpStatus.OK);

@@ -66,7 +66,6 @@ public class AdministradorService {
 			upAdm.setNome(adm.getNome());
 			upAdm.setSobreNome(adm.getSobreNome());
 			upAdm.setEmail(adm.getEmail());
-			upAdm.setCpf(adm.getCpf());
 			upAdm.setDataNasc(adm.getDataNasc());
 			upAdm.setCell(adm.getCell());
 			upAdm.setCargaHoraria(adm.getCargaHoraria());

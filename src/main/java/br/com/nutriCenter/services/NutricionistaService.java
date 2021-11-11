@@ -77,7 +77,6 @@ public class NutricionistaService {
 			profissionalDeNutricao.setNome(nutricionista.getNome());
 			profissionalDeNutricao.setSobreNome(nutricionista.getSobreNome());
 			profissionalDeNutricao.setDataNasc(nutricionista.getDataNasc());
-			profissionalDeNutricao.setCpf(nutricionista.getCpf());
 			profissionalDeNutricao.setEmail(nutricionista.getEmail());
 			profissionalDeNutricao.setCell(nutricionista.getCell());
 			profissionalDeNutricao.setNivelDeAcesso(nutricionista.getNivelDeAcesso());

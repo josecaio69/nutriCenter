@@ -50,7 +50,6 @@ public class AdministradorServiceTeste {
 		admin = new Administrador();
 		admin.setCargaHoraria(1);
 		admin.setCell(null);
-		admin.setCpf("555-555-555-55");
 		admin.setDataNasc(null);
 		admin.setEmail("maria@email.com");
 		admin.setGenero("Feminino");
@@ -130,7 +129,6 @@ public class AdministradorServiceTeste {
 		Administrador administrador = new Administrador();
 		administrador.setCargaHoraria(carga);
 		administrador.setCell(cell);
-		administrador.setCpf(cpf);
 		administrador.setDataNasc(data);
 		administrador.setEmail(email);
 		administrador.setGenero(genero);
