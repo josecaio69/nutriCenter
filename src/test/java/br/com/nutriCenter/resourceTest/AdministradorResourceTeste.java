@@ -149,7 +149,8 @@ public class AdministradorResourceTeste {
 
 	}
 
-	/* Test tentando cadastrar um administrador com um nome invalido */
+	/* Test tentando cadastrar um administrador com um nome invalido
+	 * Falta Corrigir */
 	@Test
 	public void deveRetornarErroAoTentarCadastrarComNomeInvalidoTeste() throws Exception {
 		Administrador administrador;
@@ -181,7 +182,6 @@ public class AdministradorResourceTeste {
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = formato.parse("23/11/2015");
 
-		objectMapper = new ObjectMapper();
 		administrador = new Administrador();
 
 		administrador.setId(id);
@@ -203,7 +203,6 @@ public class AdministradorResourceTeste {
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = formato.parse("23/11/2015");
 
-		objectMapper = new ObjectMapper();
 		administrador = new Administrador();
 
 		administrador.setId(id);
