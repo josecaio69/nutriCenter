@@ -13,6 +13,8 @@ import javax.persistence.InheritanceType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.validator.constraints.Length;
+
 /**
  * @author José Caio
  *
@@ -27,22 +29,34 @@ public abstract class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	@NotBlank
+	
+	@NotBlank(message = "O Nome é Obrigatorio")
+	@Length(min = 2, message = "Seu nome deve ter no mínimo 2 Caracteres")
 	@Column(name = "nome")
 	private String nome;
+	
 	@NotBlank
 	@Column(name = "sobre_nome")
 	private String sobreNome;
+	
 	@Column(name = "data_nascimento")
 	private Date dataNasc;
+	
 	@Email
-	@Column(name = "email",nullable = false, unique = true)
+	@Column(name = "email_login",nullable = false, unique = true)
 	private String email;
+	
+	@NotBlank(message = "O nome é obrigatório")
+	@Length(min = 8, message = "A senha deverá ter no mínimo {min} caracteres")
+	private String senha;
+	
 	@NotBlank
 	@Column(name = "celular")
 	private String cell;
+	
 	@Column(name = "prioridade_de_acesso")
 	private int nivelDeAcesso;
+	
 	@NotBlank
 	@Column(name = "sexo")
 	private String genero;
