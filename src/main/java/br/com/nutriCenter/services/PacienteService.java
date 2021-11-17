@@ -27,6 +27,14 @@ public class PacienteService {
 			throw new ObjectNotFoundException();
 		}
 	}
+	
+	public Optional<Paciente> findByCpf(String cpf) throws Exception {
+		if(this.repositorio.findByCpf(cpf).isEmpty()) {
+			throw new ObjectNotFoundException();
+		}else {
+			return this.repositorio.findByCpf(cpf);
+		}
+	}
 
 	public List<Paciente> findAll() throws Exception {
 		return repositorio.findAll();

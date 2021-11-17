@@ -1,10 +1,17 @@
 package br.com.nutriCenter.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -18,8 +25,9 @@ import org.hibernate.validator.constraints.br.CPF;
 public class Paciente extends Usuario {
 
 	private static final long serialVersionUID = 1L;
+	@NotBlank
 	@CPF
-	@Column(name = "CPF", nullable = false, unique = true)
+	@Column(name = "CPF")
 	private String cpf;
 	private String cidade;
 	private String rua;
@@ -27,11 +35,16 @@ public class Paciente extends Usuario {
 	private String estado;
 	private Date dataCadastro;
 	private Date dataUltimaConsulta;
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+	private List<AvaliacaoNutricional> avaliacoesDoPaciente;
+	@ManyToOne
+	@JoinColumn(name = "idPaciente")
+	private Nutricionista profissionalDeNutricao;
 
 	public Paciente() {
 		super.setNivelDeAcesso(1);
 	}
-
+	
 	/**
 	 * @return the cpf
 	 */
@@ -129,5 +142,21 @@ public class Paciente extends Usuario {
 	public void setDataUltimaConsulta(Date dataUltimaConsulta) {
 		this.dataUltimaConsulta = dataUltimaConsulta;
 	}
+
+	/**
+	 * @return the avaliacoesDoPaciente
+	 */
+	public List<AvaliacaoNutricional> getAvaliacoesDoPaciente() {
+		return avaliacoesDoPaciente;
+	}
+
+	/**
+	 * @param avaliacoesDoPaciente the avaliacoesDoPaciente to set
+	 */
+	public void setAvaliacoesDoPaciente(List<AvaliacaoNutricional> avaliacoesDoPaciente) {
+		this.avaliacoesDoPaciente = avaliacoesDoPaciente;
+	}
+	
+	
 
 }

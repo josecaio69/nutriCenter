@@ -34,7 +34,7 @@ public class NutricionistaResource {
 
 	/* POST inserindo um objeto no banco de dados */
 	@PostMapping()
-	public ResponseEntity<Nutricionista> create(@RequestBody  @Valid Nutricionista nutricionista) {
+	public ResponseEntity<Nutricionista> create(@RequestBody @Valid Nutricionista nutricionista) {
 		try {
 			Nutricionista profissionalDeNutricao = this.servico.createNutricionista(nutricionista);
 			return new ResponseEntity<>(profissionalDeNutricao, HttpStatus.CREATED);
@@ -71,7 +71,7 @@ public class NutricionistaResource {
 	public ResponseEntity<Nutricionista> deleteById(@PathVariable(value = "id") long id) {
 		try {
 			this.servico.deleteById(id);
-	
+
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (ObjectNotFoundException error) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
