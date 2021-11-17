@@ -86,7 +86,7 @@ public class PacienteResourceTeste {
 				"Sume", "PB", "Rua sem Nome", "125.331.934-02");
 
 		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(paciente))
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
 	}
 
