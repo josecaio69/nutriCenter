@@ -65,6 +65,7 @@ public abstract class Usuario implements Serializable {
 	@Column(name = "sexo")
 	private String genero;
 
+	
 	/**
 	 * @return the id
 	 */

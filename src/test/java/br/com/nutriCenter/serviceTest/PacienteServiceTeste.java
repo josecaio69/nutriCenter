@@ -20,8 +20,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import br.com.nutriCenter.model.Administrador;
-import br.com.nutriCenter.model.Nutricionista;
 import br.com.nutriCenter.model.Paciente;
 import br.com.nutriCenter.repository.PacienteRepository;
 import br.com.nutriCenter.services.PacienteService;
