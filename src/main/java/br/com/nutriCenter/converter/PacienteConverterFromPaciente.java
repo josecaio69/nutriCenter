@@ -10,10 +10,10 @@ import br.com.nutriCenter.model.Paciente;
  * @author José Caio
  *
  */
-public class PacienteConverter extends Converter<PacienteDTO, Paciente> {
+public class PacienteConverterFromPaciente extends ConverterFromPaciente<PacienteDTO, Paciente> {
 
-	  public PacienteConverter() {
-	    super(PacienteConverter::convertToEntity, PacienteConverter::convertToDto);
+	  public PacienteConverterFromPaciente() {
+	    super(PacienteConverterFromPaciente::convertToEntity, PacienteConverterFromPaciente::convertToDto);
 	  }
 
 	  private static PacienteDTO convertToDto(Paciente user) {

@@ -17,169 +17,183 @@ import org.hibernate.validator.constraints.br.CPF;
 
 /**
  * @author José Caio
- *
  */
 
 @Entity
 @Table(name = "tb_paciente")
 public class Paciente extends Usuario {
 
-	private static final long serialVersionUID = 1L;
-	@NotBlank
-	@CPF
-	@Column(name = "CPF")
-	private String cpf;
-	private String cidade;
-	private String rua;
-	private String bairro;
-	private String estado;
-	private Date dataCadastro;
-	private Date dataUltimaConsulta;
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
-	private List<AvaliacaoNutricional> avaliacoesDoPaciente;
-	@ManyToOne
-	@JoinColumn(name = "idPaciente")
-	private Nutricionista profissionalDeNutricao;
+    private static final long serialVersionUID = 1L;
+    @NotBlank
+    @CPF
+    @Column(name = "CPF")
+    private String cpf;
+    private String cidade;
+    private String rua;
+    private String bairro;
+    private String estado;
+    private Date dataCadastro;
+    private Date dataUltimaConsulta;
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    private List<AvaliacaoNutricional> avaliacoesDoPaciente;
+    @ManyToOne
+    @JoinColumn(name = "idPaciente")
+    private Nutricionista profissionalDeNutricao;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Consulta> minhasConsultas;
 
-	public Paciente() {
-		super.setNivelDeAcesso(1);
-	}
-	
-
-	public Paciente(long id, String nome, String sobreNome, Date dataNasc, String cell, int nivelDeAcesso,
-			String genero, String cpf, String cidade, String rua, String bairro, String estado, Date dataCadastro,
-			Date dataUltimaConsulta, List<AvaliacaoNutricional> avaliacoesDoPaciente) {
-		
-		this.setId(id);
-		this.setNome(nome);
-		this.setSobreNome(sobreNome);
-		this.setDataNasc(dataNasc);
-		this.setCell(cell);
-		this.setNivelDeAcesso(nivelDeAcesso);
-		this.setGenero(genero);
-		this.setCpf(cpf);
-		this.setCidade(cidade);
-		this.setRua(rua);
-		this.setBairro(bairro);
-		this.setEstado(estado);
-		this.setDataCadastro(dataCadastro);
-		this.setDataUltimaConsulta(dataUltimaConsulta);
-		this.setAvaliacoesDoPaciente(avaliacoesDoPaciente);
-	}
+    public Paciente() {
+        super.setNivelDeAcesso(1);
+    }
 
 
-	/**
-	 * @return the cpf
-	 */
-	public String getCpf() {
-		return cpf;
-	}
+    public Paciente(long id, String nome, String sobreNome, Date dataNasc, String cell, int nivelDeAcesso,
+                    String genero, String cpf, String cidade, String rua, String bairro, String estado, Date dataCadastro,
+                    Date dataUltimaConsulta, List<AvaliacaoNutricional> avaliacoesDoPaciente) {
 
-	/**
-	 * @param cpf the cpf to set
-	 */
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+        this.setId(id);
+        this.setNome(nome);
+        this.setSobreNome(sobreNome);
+        this.setDataNasc(dataNasc);
+        this.setCell(cell);
+        this.setNivelDeAcesso(nivelDeAcesso);
+        this.setGenero(genero);
+        this.setCpf(cpf);
+        this.setCidade(cidade);
+        this.setRua(rua);
+        this.setBairro(bairro);
+        this.setEstado(estado);
+        this.setDataCadastro(dataCadastro);
+        this.setDataUltimaConsulta(dataUltimaConsulta);
+        this.setAvaliacoesDoPaciente(avaliacoesDoPaciente);
+    }
 
-	/**
-	 * @return the cidade
-	 */
-	public String getCidade() {
-		return cidade;
-	}
 
-	/**
-	 * @param cidade the cidade to set
-	 */
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
+    /**
+     * @return the cpf
+     */
+    public String getCpf() {
+        return cpf;
+    }
 
-	/**
-	 * @return the rua
-	 */
-	public String getRua() {
-		return rua;
-	}
+    /**
+     * @param cpf the cpf to set
+     */
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
-	/**
-	 * @param rua the rua to set
-	 */
-	public void setRua(String rua) {
-		this.rua = rua;
-	}
+    /**
+     * @return the cidade
+     */
+    public String getCidade() {
+        return cidade;
+    }
 
-	/**
-	 * @return the bairro
-	 */
-	public String getBairro() {
-		return bairro;
-	}
+    /**
+     * @param cidade the cidade to set
+     */
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
 
-	/**
-	 * @param bairro the bairro to set
-	 */
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
+    /**
+     * @return the rua
+     */
+    public String getRua() {
+        return rua;
+    }
 
-	/**
-	 * @return the estado
-	 */
-	public String getEstado() {
-		return estado;
-	}
+    /**
+     * @param rua the rua to set
+     */
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
 
-	/**
-	 * @param estado the estado to set
-	 */
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+    /**
+     * @return the bairro
+     */
+    public String getBairro() {
+        return bairro;
+    }
 
-	/**
-	 * @return the dataCadastro
-	 */
-	public Date getDataCadastro() {
-		return dataCadastro;
-	}
+    /**
+     * @param bairro the bairro to set
+     */
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
 
-	/**
-	 * @param dataCadastro the dataCadastro to set
-	 */
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
+    /**
+     * @return the estado
+     */
+    public String getEstado() {
+        return estado;
+    }
 
-	/**
-	 * @return the dataUltimaConsulta
-	 */
-	public Date getDataUltimaConsulta() {
-		return dataUltimaConsulta;
-	}
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
-	/**
-	 * @param dataUltimaConsulta the dataUltimaConsulta to set
-	 */
-	public void setDataUltimaConsulta(Date dataUltimaConsulta) {
-		this.dataUltimaConsulta = dataUltimaConsulta;
-	}
+    /**
+     * @return the dataCadastro
+     */
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
 
-	/**
-	 * @return the avaliacoesDoPaciente
-	 */
-	public List<AvaliacaoNutricional> getAvaliacoesDoPaciente() {
-		return avaliacoesDoPaciente;
-	}
+    /**
+     * @param dataCadastro the dataCadastro to set
+     */
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
 
-	/**
-	 * @param avaliacoesDoPaciente the avaliacoesDoPaciente to set
-	 */
-	public void setAvaliacoesDoPaciente(List<AvaliacaoNutricional> avaliacoesDoPaciente) {
-		this.avaliacoesDoPaciente = avaliacoesDoPaciente;
-	}
-	
-	
+    /**
+     * @return the dataUltimaConsulta
+     */
+    public Date getDataUltimaConsulta() {
+        return dataUltimaConsulta;
+    }
 
+    /**
+     * @param dataUltimaConsulta the dataUltimaConsulta to set
+     */
+    public void setDataUltimaConsulta(Date dataUltimaConsulta) {
+        this.dataUltimaConsulta = dataUltimaConsulta;
+    }
+
+    /**
+     * @return the avaliacoesDoPaciente
+     */
+    public List<AvaliacaoNutricional> getAvaliacoesDoPaciente() {
+        return avaliacoesDoPaciente;
+    }
+
+    /**
+     * @param avaliacoesDoPaciente the avaliacoesDoPaciente to set
+     */
+    public void setAvaliacoesDoPaciente(List<AvaliacaoNutricional> avaliacoesDoPaciente) {
+        this.avaliacoesDoPaciente = avaliacoesDoPaciente;
+    }
+
+    public Nutricionista getProfissionalDeNutricao() {
+        return profissionalDeNutricao;
+    }
+
+    public void setProfissionalDeNutricao(Nutricionista profissionalDeNutricao) {
+        this.profissionalDeNutricao = profissionalDeNutricao;
+    }
+
+    public List<Consulta> getMinhasConsultas() {
+        return minhasConsultas;
+    }
+
+    public void setMinhasConsultas(List<Consulta> minhasConsultas) {
+        this.minhasConsultas = minhasConsultas;
+    }
 }

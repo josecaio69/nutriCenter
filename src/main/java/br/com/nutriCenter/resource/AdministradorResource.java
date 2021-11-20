@@ -32,9 +32,6 @@ public class AdministradorResource {
 
 	@Autowired
 	private AdministradorService servico;
-	
-	@Autowired
-	private ModelMapper modelMapper;
 
 	@PostMapping()
 	public ResponseEntity<Administrador> create(@RequestBody @Valid Administrador adm) {

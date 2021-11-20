@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
  * @author José Caio
  *
  */
-public class Converter<T, U> {
+public class ConverterFromPaciente<T, U> {
 
 	  private final Function<T, U> fromDto;
 	  private final Function<U, T> fromEntity;
 
-	  public Converter(final Function<T, U> fromDto, final Function<U, T> fromEntity) {
+	  public ConverterFromPaciente(final Function<T, U> fromDto, final Function<U, T> fromEntity) {
 	    this.fromDto = fromDto;
 	    this.fromEntity = fromEntity;
 	  }
