@@ -86,7 +86,7 @@ public class PacienteResourceTeste {
 				"Sume", "PB", "Rua sem Nome", "125.331.934-02");
 
 		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(paciente))
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
 	}
 
@@ -174,6 +174,7 @@ public class PacienteResourceTeste {
 		paciente.setDataCadastro(data);
 		paciente.setDataNasc(data);
 		paciente.setDataUltimaConsulta(data);
+		paciente.setSenha(cpf);
 
 		return Optional.ofNullable(paciente);
 	}
@@ -203,7 +204,7 @@ public class PacienteResourceTeste {
 		paciente.setDataCadastro(data);
 		paciente.setDataNasc(data);
 		paciente.setDataUltimaConsulta(data);
-
+		paciente.setSenha(cpf);
 		return paciente;
 	}
 

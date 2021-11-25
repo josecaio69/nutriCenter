@@ -50,6 +50,7 @@ public class NutricionistaResourceTest {
 	@MockBean
 	private NutricionistaResource nutricionistaController;
 
+	
 	@MockBean
 	private NutricionistaService nutricionistaService;
 
@@ -239,6 +240,8 @@ public class NutricionistaResourceTest {
 		nutri.setEspecialidade(especialidade);
 		nutri.setNivelDeAcesso(nivel);
 		nutri.setEspecializacoes(null);
+		nutri.setSenha(email);
+		
 
 		return Optional.ofNullable(nutri);
 
@@ -263,7 +266,7 @@ public class NutricionistaResourceTest {
 		nutri.setEspecialidade(especialidade);
 		nutri.setNivelDeAcesso(nivel);
 		nutri.setEspecializacoes(null);
-
+		nutri.setSenha(email);
 		return nutri;
 
 	}

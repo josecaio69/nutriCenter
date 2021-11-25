@@ -149,8 +149,9 @@ public class AdministradorResourceTeste {
 
 	}
 
-	/* Test tentando cadastrar um administrador com um nome invalido
-	 * Falta Corrigir */
+	/*
+	 * Test tentando cadastrar um administrador com um nome invalido Falta Corrigir
+	 */
 	@Test
 	public void deveRetornarErroAoTentarCadastrarComNomeInvalidoTeste() throws Exception {
 		Administrador administrador;
@@ -193,6 +194,7 @@ public class AdministradorResourceTeste {
 		administrador.setNivelDeAcesso(acesso);
 		administrador.setDataNasc(data);
 		administrador.setCell(cel);
+		administrador.setSenha(email);	
 
 		return Optional.ofNullable(administrador);
 	}
@@ -214,6 +216,7 @@ public class AdministradorResourceTeste {
 		administrador.setNivelDeAcesso(acesso);
 		administrador.setDataNasc(data);
 		administrador.setCell(cel);
+		administrador.setSenha(email);
 
 		return administrador;
 	}
