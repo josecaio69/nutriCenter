@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import br.com.nutriCenter.services.NutricionistaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,7 @@ public class PacienteResource {
 
 	@Autowired
 	private PacienteService servico;
+
 
 	/* GET paciente by Id */
 	@GetMapping("/{id}")
@@ -61,6 +63,17 @@ public class PacienteResource {
 			Paciente patient = this.servico.create(paciente);
 			return new ResponseEntity<>(patient, HttpStatus.CREATED);
 		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping("/addPaciente/{idDoNutricionista}")
+	public ResponseEntity<Paciente> createFromNutricionista(@PathVariable(value = "idDoNutricionista") long idDoNutricionista, @RequestBody @Valid Paciente paciente) {
+		try {
+			System.out.println("AQUIAUIQUAUIQUIQ");
+			Paciente patient = this.servico.createNewPaciente(idDoNutricionista, paciente);
+			return new ResponseEntity<>(patient, HttpStatus.CREATED);
+		}catch (Exception erro){
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

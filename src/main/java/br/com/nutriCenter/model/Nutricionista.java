@@ -32,7 +32,7 @@ public class Nutricionista extends Usuario {
 	
 	private String especialidade;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "profissionalDeNutricao")
+	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	private List<Paciente> pacientes;
 
 	/**

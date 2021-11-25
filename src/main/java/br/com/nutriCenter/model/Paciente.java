@@ -36,11 +36,11 @@ public class Paciente extends Usuario {
     private Date dataUltimaConsulta;
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<AvaliacaoNutricional> avaliacoesDoPaciente;
-    @ManyToOne
-    @JoinColumn(name = "idPaciente")
-    private Nutricionista profissionalDeNutricao;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Consulta> minhasConsultas;
+    @ManyToOne
+    @JoinColumn(name = "id_paciente")
+    private Nutricionista nutricionista;
 
     public Paciente() {
         super.setNivelDeAcesso(1);
@@ -179,14 +179,6 @@ public class Paciente extends Usuario {
      */
     public void setAvaliacoesDoPaciente(List<AvaliacaoNutricional> avaliacoesDoPaciente) {
         this.avaliacoesDoPaciente = avaliacoesDoPaciente;
-    }
-
-    public Nutricionista getProfissionalDeNutricao() {
-        return profissionalDeNutricao;
-    }
-
-    public void setProfissionalDeNutricao(Nutricionista profissionalDeNutricao) {
-        this.profissionalDeNutricao = profissionalDeNutricao;
     }
 
     public List<Consulta> getMinhasConsultas() {

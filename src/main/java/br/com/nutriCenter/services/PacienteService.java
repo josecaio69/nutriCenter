@@ -3,98 +3,117 @@ package br.com.nutriCenter.services;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.nutriCenter.model.Nutricionista;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.nutriCenter.exception.ObjectNotFoundException;
 import br.com.nutriCenter.model.Paciente;
 import br.com.nutriCenter.repository.PacienteRepository;
+
 /**
  * @author José Caio
- *
  */
 
 @Service
 public class PacienteService {
 
-	@Autowired
-	private PacienteRepository repositorio;
+    @Autowired
+    private PacienteRepository repositorio;
 
-	public Optional<Paciente> findById(long id) throws Exception {
-		if (this.isExist(id)) {
-			return this.repositorio.findById(id);
-		} else {
-			throw new ObjectNotFoundException();
-		}
-	}
-	
-	public Optional<Paciente> findByCpf(String cpf) throws Exception {
-		if(this.repositorio.findByCpf(cpf).isEmpty()) {
-			throw new ObjectNotFoundException();
-		}else {
-			return this.repositorio.findByCpf(cpf);
-		}
-	}
+    @Autowired
+    private NutricionistaService nutricionistaService;
 
-	public List<Paciente> findAll() throws Exception {
-		return repositorio.findAll();
-	}
+    public Optional<Paciente> findById(long id) throws Exception {
+        if (this.isExist(id)) {
+            return this.repositorio.findById(id);
+        } else {
+            throw new ObjectNotFoundException();
+        }
+    }
 
-	public Paciente update(Paciente paciente) throws Exception {
-		if (this.isExist(paciente.getId())) {
-			return repositorio.save(paciente);
-		} else {
-			throw new ObjectNotFoundException();
-		}
-	}
+    public Optional<Paciente> findByCpf(String cpf) throws Exception {
+        if (this.repositorio.findByCpf(cpf).isEmpty()) {
+            throw new ObjectNotFoundException();
+        } else {
+            return this.repositorio.findByCpf(cpf);
+        }
+    }
 
-	public Paciente updateById(long id, Paciente paciente) throws Exception {
-		if (this.isExist(paciente.getId())) {
-			var patient = this.repositorio.findById(id).get();
-			patient.setNome(paciente.getNome());
-			patient.setSobreNome(paciente.getSobreNome());
-			patient.setEmail(paciente.getEmail());
-			patient.setCell(paciente.getCell());
-			patient.setCpf(paciente.getCpf());
-			patient.setDataNasc(paciente.getDataNasc());
-			return repositorio.save(patient);
-		} else {
-			throw new ObjectNotFoundException();
-		}
-	}
+    public List<Paciente> findAll() throws Exception {
+        return repositorio.findAll();
+    }
 
-	public Paciente create(Paciente paciente) throws Exception {
-		return repositorio.save(paciente);
-	}
+    public Paciente update(Paciente paciente) throws Exception {
+        if (this.isExist(paciente.getId())) {
+            return repositorio.save(paciente);
+        } else {
+            throw new ObjectNotFoundException();
+        }
+    }
 
-	public void delete(Paciente paciente) throws Exception {
-		if (this.isExist(paciente.getId())) {
-			this.repositorio.delete(paciente);
-		} else {
-			throw new ObjectNotFoundException();
-		}
-	}
+    public Paciente updateById(long id, Paciente paciente) throws Exception {
+        if (this.isExist(paciente.getId())) {
+            var patient = this.repositorio.findById(id).get();
+            patient.setNome(paciente.getNome());
+            patient.setSobreNome(paciente.getSobreNome());
+            patient.setEmail(paciente.getEmail());
+            patient.setCell(paciente.getCell());
+            patient.setCpf(paciente.getCpf());
+            patient.setDataNasc(paciente.getDataNasc());
+            return repositorio.save(patient);
+        } else {
+            throw new ObjectNotFoundException();
+        }
+    }
 
-	public void deleteById(long id) throws Exception {
-		if (this.isExist(id)) {
-			this.repositorio.deleteById(id);
-		} else {
-			throw new ObjectNotFoundException();
-		}
-	}
+    public Paciente create(Paciente paciente) throws Exception {
+        return repositorio.save(paciente);
+    }
 
-	/*Deletar todos os pacientes do sistema*/
-	public void deleteAll() throws Exception {
-		this.repositorio.deleteAll();
-	}
+    /*Associar paciente ao nutricionista*/
+    public Paciente createNewPaciente(long idNutricionista, Paciente paciente) throws Exception {
+        var nutricionista = this.nutricionistaService.findById(idNutricionista).get();
+        if (nutricionista.equals(null))
+            throw new ObjectNotFoundException();
+        else {
+            List<Paciente> pacienteList = nutricionista.getPacientes();
+            pacienteList.add(paciente);
+            nutricionista.setPacientes(pacienteList);
+            this.nutricionistaService.update(nutricionista);
+        }
+        return paciente;
+    }
 
-	/* Verificar a existencia de um objeto do tipo paciente no bd */
-	private boolean isExist(long id) {
-		if (!this.repositorio.findById(id).isEmpty()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+
+    public void delete(Paciente paciente) throws Exception {
+        if (this.isExist(paciente.getId())) {
+            this.repositorio.delete(paciente);
+        } else {
+            throw new ObjectNotFoundException();
+        }
+    }
+
+    public void deleteById(long id) throws Exception {
+        if (this.isExist(id)) {
+            this.repositorio.deleteById(id);
+        } else {
+            throw new ObjectNotFoundException();
+        }
+    }
+
+    /*Deletar todos os pacientes do sistema*/
+    public void deleteAll() throws Exception {
+        this.repositorio.deleteAll();
+    }
+
+    /* Verificar a existencia de um objeto do tipo paciente no bd */
+    private boolean isExist(long id) {
+        if (!this.repositorio.findById(id).isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

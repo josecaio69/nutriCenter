@@ -36,6 +36,8 @@ public abstract class AvaliacaoNutricional {
 	@Length(min = 2, message = "É obrigatorio um nome para avaliaação")
 	@Column(name = "nome_da_avalicao")
 	private String nomeDaAvaliacao;
+	@Column(name = "titulo_da_avalicao")
+	private String titulo;
 	@Column(name = "descricao_ou_observacoes")
 	private String descricao;
 	@JsonFormat(pattern="dd/MM/yyyy")
