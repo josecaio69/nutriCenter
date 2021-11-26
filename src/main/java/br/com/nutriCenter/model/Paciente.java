@@ -38,9 +38,9 @@ public class Paciente extends Usuario {
     private List<AvaliacaoNutricional> avaliacoesDoPaciente;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Consulta> minhasConsultas;
-    @ManyToOne
-    @JoinColumn(name = "id_paciente")
-    private Nutricionista nutricionista;
+    @NotBlank
+    @Column(name = "status_do_paciente")
+    private boolean status;
 
     public Paciente() {
         super.setNivelDeAcesso(1);

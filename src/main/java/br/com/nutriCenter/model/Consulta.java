@@ -3,9 +3,10 @@ package br.com.nutriCenter.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import javax.xml.crypto.Data;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
+
 
 @Entity
 @Table(name="tb_consulta")
@@ -13,10 +14,18 @@ public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @JsonFormat(pattern = "dd/MM/YYY")
+    @Column(name ="data_da_consulta")
     private Date dataDaConsulta;
     @Column(name = "valor_da_consulta")
     private BigDecimal valor;
+    @Column(name = "horario_da_consulta")
+    private LocalDateTime horaDaConsulta;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_do_nutricionista")
+    private Nutricionista nutricionista;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_do_paciente")
+    private Paciente paciente;
 
     public long getId() {
         return id;
@@ -42,5 +51,27 @@ public class Consulta {
         this.valor = valor;
     }
 
+    public LocalDateTime getHoraDaConsulta() {
+        return horaDaConsulta;
+    }
 
+    public void setHoraDaConsulta(LocalDateTime horaDaConsulta) {
+        this.horaDaConsulta = horaDaConsulta;
+    }
+
+    public Nutricionista getNutricionista() {
+        return nutricionista;
+    }
+
+    public void setNutricionista(Nutricionista nutricionista) {
+        this.nutricionista = nutricionista;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
 }

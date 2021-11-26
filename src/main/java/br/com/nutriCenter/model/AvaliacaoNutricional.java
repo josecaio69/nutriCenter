@@ -40,7 +40,6 @@ public abstract class AvaliacaoNutricional {
 	private String titulo;
 	@Column(name = "descricao_ou_observacoes")
 	private String descricao;
-	@JsonFormat(pattern="dd/MM/yyyy")
 	@Column(name = "data_de_realizacao")
 	private Date data;
 	@Column(name = "altura_do_paciente")
