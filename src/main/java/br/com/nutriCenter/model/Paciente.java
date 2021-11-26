@@ -188,4 +188,12 @@ public class Paciente extends Usuario {
     public void setMinhasConsultas(List<Consulta> minhasConsultas) {
         this.minhasConsultas = minhasConsultas;
     }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 }
