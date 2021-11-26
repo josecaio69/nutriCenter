@@ -31,7 +31,7 @@ public abstract class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
+	
 	@NotBlank(message = "O Nome é Obrigatorio")
 	@Length(min = 2, message = "Seu nome deve ter no mínimo 2 Caracteres")
 	@Column(name = "nome")

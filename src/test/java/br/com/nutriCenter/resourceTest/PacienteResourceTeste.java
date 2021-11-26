@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 
-import org.apache.catalina.authenticator.SpnegoAuthenticator.AcceptAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -55,9 +54,9 @@ public class PacienteResourceTeste {
 	public void setUp() throws ParseException {
 
 		objectMapper = new ObjectMapper();
-		Paciente paciente;
-		paciente = generatePaciente(1L, "Jose", "Caio", "jose@email.com", "Masculino", 2, 1, "99 9999-9999", "Centro",
-				"Sume", "PB", "Rua sem Nome", "125.331.934-02");
+		Paciente paciente1;
+		paciente1 = generatePaciente(1L, "Jose", "Caio", "jose@email.com", "Masculino", 2, 1, "99 9999-9999", "Centro",
+				"Sume", "PB", "Rua sem Nome", "125.331.934-02", "maria2020");
 
 	}
 
@@ -72,7 +71,7 @@ public class PacienteResourceTeste {
 	public void deveRetornarsucessoAoBuscarPacientesPeloIdTeste() throws Exception {
 		when(this.pacienteService.findById(1L))
 				.thenReturn(generateOptionalPaciente(1L, "Jose", "Caio", "jose@email.com", "Masculino", 2, 1,
-						"99 9999-9999", "Centro", "Sume", "PB", "Rua sem Nome", "125.331.934-02"));
+						"99 9999-9999", "Centro", "Sume", "PB", "Rua sem Nome", "125.331.934-02", "maria2020"));
 		mockMvc.perform(get(urlBase + "/{id}", 1L).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
 	}
@@ -82,8 +81,8 @@ public class PacienteResourceTeste {
 	public void deveRetornarSucessoAoTentarAdicionarUmNovoPacienteTest() throws Exception {
 
 		Paciente paciente;
-		paciente = generatePaciente(2L, "Maria", "Silva", "maria@email.com", "feminino", 2, 1, "99 9999-9999", "Centro",
-				"Sume", "PB", "Rua sem Nome", "125.331.934-02");
+		paciente = generatePaciente(2L, "Maria", "Da Silva", "maria@email.com", "feminino", 2, 1, "83 98672-5449",
+				"Centro", "Sume", "PB", "Rua sem Nome", "481.715.130-77", "maria2020");
 
 		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(paciente))
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isOk());
@@ -96,7 +95,7 @@ public class PacienteResourceTeste {
 
 		Paciente paciente;
 		paciente = generatePaciente(1L, "", "Silva", "maria@email.com", "feminino", 2, 1, "99 9999-9999", "Centro",
-				"Sume", "PB", "Rua sem Nome", "064.765,876-09");
+				"Sume", "PB", "Rua sem Nome", "064.765,876-09", "maria2020");
 		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(paciente))
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
@@ -108,7 +107,7 @@ public class PacienteResourceTeste {
 
 		Paciente paciente;
 		paciente = generatePaciente(1L, "Maria", "", "maria@email.com", "feminino", 2, 1, "99 9999-9999", "Centro",
-				"Sume", "PB", "Rua sem Nome", "064.765,876-09");
+				"Sume", "PB", "Rua sem Nome", "064.765,876-09", "maria2020");
 		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(paciente))
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
@@ -120,19 +119,19 @@ public class PacienteResourceTeste {
 
 		Paciente paciente;
 		paciente = generatePaciente(1L, "Maria", "Silva", "maria.com", "feminino", 2, 1, "99 9999-9999", "Centro",
-				"Sume", "PB", "Rua sem Nome", "064.765,876-09");
+				"Sume", "PB", "Rua sem Nome", "064.765,876-09", "maria2020");
 		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(paciente))
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
 	}
 
-	/* Test tentando cadastrar um administrador sem o atributo genero */
+	/* Test tentando cadastrar um paciente sem o atributo genero */
 	@Test
 	public void deveRetornarErroAoTentarCadastrarComGeneroNulloTeste() throws Exception {
 
 		Paciente paciente;
 		paciente = generatePaciente(1L, "Maria", "Silva", "maria@email.com", "", 2, 1, "99 9999-9999", "Centro", "Sume",
-				"PB", "Rua sem Nome", "064.765,876-09");
+				"PB", "Rua sem Nome", "064.765,876-09", "maria2020");
 		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(paciente))
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
@@ -143,7 +142,33 @@ public class PacienteResourceTeste {
 	public void deveRetornarErroAoTentarCadastrarSemOTelefoneTeste() throws Exception {
 		Paciente paciente;
 		paciente = generatePaciente(1L, "Maria", "Silva", "maria@email.com", "feminino", 2, 1, "", "Centro", "Sume",
-				"PB", "Rua sem Nome", "064.765,876-09");
+				"PB", "Rua sem Nome", "064.765,876-09", "maria2020");
+		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(paciente))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+
+	/*
+	 * Test tentando cadastrar um paciente com uma senha menor que 8 caracteres
+	 */
+	@Test
+	public void deveRetornarErroAoTentarCadastarComSenhaInvalida() throws Exception {
+
+		Paciente paciente;
+		paciente = generatePaciente(1L, "Maria", "Silva", "maria@email.com", "feminino", 2, 1, "", "Centro", "Sume",
+				"PB", "Rua sem Nome", "064.765,876-09", "ma");
+		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(paciente))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+
+	/* Test tentando cadastrar um paciente com senha nula */
+	@Test
+	public void deveRetornarErroAoTentarCadastarSemSenha() throws Exception {
+
+		Paciente paciente;
+		paciente = generatePaciente(1L, "Maria", "Silva", "maria@email.com", "feminino", 2, 1, "", "Centro", "Sume",
+				"PB", "Rua sem Nome", "064.765,876-09", "");
 		mockMvc.perform(post(urlBase).content(objectMapper.writeValueAsString(paciente))
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
@@ -151,7 +176,7 @@ public class PacienteResourceTeste {
 
 	private Optional<Paciente> generateOptionalPaciente(long id, String nome, String sobrenome, String email,
 			String genero, int carga, int acesso, String cel, String bairro, String cidade, String estado, String rua,
-			String cpf) throws ParseException {
+			String cpf, String senha) throws ParseException {
 
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = formato.parse("23/11/2015");
@@ -171,16 +196,16 @@ public class PacienteResourceTeste {
 		paciente.setEstado(estado);
 		paciente.setRua(rua);
 		paciente.setCpf(cpf);
-		paciente.setDataCadastro(data);
 		paciente.setDataNasc(data);
 		paciente.setDataUltimaConsulta(data);
 		paciente.setSenha(cpf);
+		paciente.setSenha(senha);
 
 		return Optional.ofNullable(paciente);
 	}
 
 	private Paciente generatePaciente(long id, String nome, String sobrenome, String email, String genero, int carga,
-			int acesso, String cel, String bairro, String cidade, String estado, String rua, String cpf)
+			int acesso, String cel, String bairro, String cidade, String estado, String rua, String cpf, String senha)
 			throws ParseException {
 
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -201,6 +226,7 @@ public class PacienteResourceTeste {
 		paciente.setEstado(estado);
 		paciente.setRua(rua);
 		paciente.setCpf(cpf);
+		paciente.setSenha(senha);
 		paciente.setDataCadastro(data);
 		paciente.setDataNasc(data);
 		paciente.setDataUltimaConsulta(data);
