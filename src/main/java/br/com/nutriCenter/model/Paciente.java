@@ -38,8 +38,7 @@ public class Paciente extends Usuario {
     private List<AvaliacaoNutricional> avaliacoesDoPaciente;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Consulta> minhasConsultas;
-    @NotBlank
-    @Column(name = "status_do_paciente")
+    @Column(name = "status_do_paciente", nullable = false)
     private boolean status;
 
     public Paciente() {
