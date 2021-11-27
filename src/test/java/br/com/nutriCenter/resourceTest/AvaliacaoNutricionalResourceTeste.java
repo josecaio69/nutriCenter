@@ -60,7 +60,7 @@ public class AvaliacaoNutricionalResourceTeste {
 		anamnese = generateAnamnese(175, "", "", true, 1L, true, "Anamnese", 80, "nenhuma");
 		mockMvc.perform(post(urlBase + "/cadastrarAvalicao/anamnese" + "/{idPaciente}", 1L)
 				.content(objectMapper.writeValueAsString(anamnese))
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
 	}
 	
