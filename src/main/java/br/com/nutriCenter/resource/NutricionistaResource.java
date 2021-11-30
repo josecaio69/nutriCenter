@@ -1,9 +1,9 @@
 package br.com.nutriCenter.resource;
 
 import java.util.List;
-
 import javax.validation.Valid;
-
+import br.com.nutriCenter.model.Consulta;
+import br.com.nutriCenter.services.ConsultaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,22 +15,22 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.nutriCenter.exception.ObjectNotFoundException;
 import br.com.nutriCenter.model.Nutricionista;
 import br.com.nutriCenter.services.NutricionistaService;
-
 /**
  * @author José Caio
  *
  */
-
 @RestController()
 @RequestMapping(value = "/api/nutricionista")
 public class NutricionistaResource {
 
 	@Autowired
 	private NutricionistaService servico;
+
+	@Autowired
+	private ConsultaService consultaService;
 
 	/* POST inserindo um objeto no banco de dados */
 	@PostMapping()
@@ -142,6 +142,16 @@ public class NutricionistaResource {
 		} catch (Exception error) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	@GetMapping("/getAllConsultas")
+	public List<Consulta> getConsultas(){
+		return this.consultaService.findAll();
+	}
+
+	@PostMapping("/createConsulta/{id}/{id}")
+	public Consulta createConsulta(@RequestBody Consulta consulta){
+	return null;
 	}
 
 }

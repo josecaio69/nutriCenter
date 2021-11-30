@@ -21,9 +21,6 @@ public class Consulta {
     @Column(name = "horario_da_consulta")
     private LocalDateTime horaDaConsulta;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_do_nutricionista")
-    private Nutricionista nutricionista;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_do_paciente")
     private Paciente paciente;
 
@@ -57,14 +54,6 @@ public class Consulta {
 
     public void setHoraDaConsulta(LocalDateTime horaDaConsulta) {
         this.horaDaConsulta = horaDaConsulta;
-    }
-
-    public Nutricionista getNutricionista() {
-        return nutricionista;
-    }
-
-    public void setNutricionista(Nutricionista nutricionista) {
-        this.nutricionista = nutricionista;
     }
 
     public Paciente getPaciente() {

@@ -2,13 +2,7 @@ package br.com.nutriCenter.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author José Caio
@@ -34,6 +28,9 @@ public class Nutricionista extends Usuario {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	private List<Paciente> pacientes;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "consulta_id")
+	private List<Consulta> consultaList;
 
 	/**
 	 * @return the cRN
@@ -105,4 +102,11 @@ public class Nutricionista extends Usuario {
 		this.pacientes = pacientes;
 	}
 
+	public List<Consulta> getConsultaList() {
+		return consultaList;
+	}
+
+	public void setConsultaList(List<Consulta> consultaList) {
+		this.consultaList = consultaList;
+	}
 }

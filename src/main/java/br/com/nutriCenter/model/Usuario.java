@@ -42,7 +42,6 @@ public abstract class Usuario implements Serializable {
 	private String sobreNome;
 
 	@Column(name = "data_nascimento")
-	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataNasc;
 	
 	@NotBlank(message = "O E-mail é Obrigatorio, deve ser único e válido")

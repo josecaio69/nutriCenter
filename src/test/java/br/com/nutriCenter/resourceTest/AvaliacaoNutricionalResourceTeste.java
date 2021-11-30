@@ -95,16 +95,10 @@ public class AvaliacaoNutricionalResourceTeste {
 		Date data = formato.parse("23/11/2015");
 
 		AvalicaoDeAnamnese avaliacao = new AvalicaoDeAnamnese();
-		avaliacao.setAltura(altura);
 		avaliacao.setData(data);
 		avaliacao.setDescricao(descricao);
-		avaliacao.setFrequenciaQueIngereAlcool(alcool);
-		avaliacao.setFumante(fuma);
 		avaliacao.setId(id);
-		avaliacao.setIngereAlcool(bebida);
 		avaliacao.setNomeDaAvaliacao(nomeAvaliacao);
-		avaliacao.setPeso(peso);
-		avaliacao.setRestricaoAlimentar(restricao);
 
 		return avaliacao;
 
@@ -117,13 +111,11 @@ public class AvaliacaoNutricionalResourceTeste {
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = formato.parse("23/11/2015");
 
-		avaliacao.setAltura(altura);
 		avaliacao.setData(data);
 		avaliacao.setDescricao(descricao);
 		avaliacao.setDisponivel(disponivel);
 		avaliacao.setId(id);
 		avaliacao.setNomeDaAvaliacao(nome);
-		avaliacao.setPeso(peso);
 		avaliacao.setPesoIdeal(pesoIdeal);
 
 		return avaliacao;
@@ -135,12 +127,10 @@ public class AvaliacaoNutricionalResourceTeste {
 		Date data = formato.parse("23/11/2015");
 		
 		AvaliacaoGastoEnergetico avaliacao = new AvaliacaoGastoEnergetico();
-		avaliacao.setAltura(altura);
 		avaliacao.setData(data);
 		avaliacao.setDescricao(descricao);
 		avaliacao.setId(id);
 		avaliacao.setNivelDeAtividadeFisica(atividadeFisica);
-		avaliacao.setPeso(peso);
 		avaliacao.setProtocolo(protocolo);
 	
 		return avaliacao;

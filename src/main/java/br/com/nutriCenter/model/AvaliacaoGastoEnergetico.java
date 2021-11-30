@@ -20,52 +20,53 @@ import javax.persistence.Table;
 public class AvaliacaoGastoEnergetico extends AvaliacaoNutricional {
 
 	private String protocolo;
+	@Column(name = "peso_paciente", nullable = false)
+	private float peso;
+	@Column(name = "altura_paciente", nullable = false)
+	private float  altura;
 
-	@Column(name = "nivel_de_atividade_fisica")
+	@Column(name = "nivel_de_atividade_fisica", nullable = false)
 	private String nivelDeAtividadeFisica;
 	@ElementCollection(fetch = FetchType.LAZY)
 	private List<String> patologia;
 
-	/**
-	 * @return the protocolo
-	 */
 	public String getProtocolo() {
 		return protocolo;
 	}
 
-	/**
-	 * @param protocolo the protocolo to set
-	 */
 	public void setProtocolo(String protocolo) {
 		this.protocolo = protocolo;
 	}
 
-	/**
-	 * @return the nivelDeAtividadeFisica
-	 */
+	public float getPeso() {
+		return peso;
+	}
+
+	public void setPeso(float peso) {
+		this.peso = peso;
+	}
+
+	public float getAltura() {
+		return altura;
+	}
+
+	public void setAltura(float altura) {
+		this.altura = altura;
+	}
+
 	public String getNivelDeAtividadeFisica() {
 		return nivelDeAtividadeFisica;
 	}
 
-	/**
-	 * @param nivelDeAtividadeFisica the nivelDeAtividadeFisica to set
-	 */
 	public void setNivelDeAtividadeFisica(String nivelDeAtividadeFisica) {
 		this.nivelDeAtividadeFisica = nivelDeAtividadeFisica;
 	}
 
-	/**
-	 * @return the patologia
-	 */
 	public List<String> getPatologia() {
 		return patologia;
 	}
 
-	/**
-	 * @param patologia the patologia to set
-	 */
 	public void setPatologia(List<String> patologia) {
 		this.patologia = patologia;
 	}
-
 }
