@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.nutriCenter.model.AvaliacaoAntropometrica;
 import br.com.nutriCenter.model.AvaliacaoGastoEnergetico;
-import br.com.nutriCenter.model.AvalicaoDeAnamnese;
+import br.com.nutriCenter.model.AvaliacaoDeAnamnese;
 import br.com.nutriCenter.services.AvalicaoNutricionalService;
 
 @RunWith(SpringRunner.class)
@@ -38,7 +38,7 @@ public class AvaliacaoNutricionalResourceTeste {
 	@MockBean
 	private AvalicaoNutricionalService avalicaoNutricionalService;
 
-	private AvalicaoDeAnamnese anamnese;
+	private AvaliacaoDeAnamnese anamnese;
 
 	private AvaliacaoAntropometrica antropometrica;
 
@@ -88,13 +88,13 @@ public class AvaliacaoNutricionalResourceTeste {
 	
 	
 	
-	private AvalicaoDeAnamnese generateAnamnese(float altura, String descricao, String alcool, boolean fuma, long id,
+	private AvaliacaoDeAnamnese generateAnamnese(float altura, String descricao, String alcool, boolean fuma, long id,
 			boolean bebida, String nomeAvaliacao, float peso, String restricao) throws ParseException {
 
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = formato.parse("23/11/2015");
 
-		AvalicaoDeAnamnese avaliacao = new AvalicaoDeAnamnese();
+		AvaliacaoDeAnamnese avaliacao = new AvaliacaoDeAnamnese();
 		avaliacao.setData(data);
 		avaliacao.setDescricao(descricao);
 		avaliacao.setId(id);

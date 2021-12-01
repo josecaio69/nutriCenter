@@ -12,15 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @author José Caio
@@ -42,10 +38,6 @@ public abstract class AvaliacaoNutricional {
 	@Length(min = 2, message = "É obrigatorio um nome para avaliação")
 	@Column(name = "tipo_da_avalicao")
 	private String titulo;
-	
-	@NotNull(message = "Informe a descrição da avaliação")
-	@Column(name = "descricao_ou_observacoes")
-	private String descricao;
 	
 	@NotNull(message = "A data não pode ser nula")
 	@Column(name = "data_de_realizacao")
@@ -75,13 +67,7 @@ public abstract class AvaliacaoNutricional {
 		this.titulo = titulo;
 	}
 
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+	
 
 	public Date getData() {
 		return data;

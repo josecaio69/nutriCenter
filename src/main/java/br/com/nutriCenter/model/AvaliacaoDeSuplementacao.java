@@ -3,6 +3,8 @@ package br.com.nutriCenter.model;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.FetchType;
+import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 public class AvaliacaoDeSuplementacao extends AvaliacaoNutricional{
@@ -15,8 +17,20 @@ public class AvaliacaoDeSuplementacao extends AvaliacaoNutricional{
     private List<String> fitoterapicos;
     @Column(name = "posologia", nullable = false)
     private String posologia;
+    
+    @NotNull(message = "Informe a descrição da avaliação")
+	@Column(name = "descricao_ou_observacoes")
+	private String descricao;
+    
+    public String getDescricao() {
+		return descricao;
+	}
 
-    public List<String> getSumplementos() {
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public List<String> getSumplementos() {
         return sumplementos;
     }
 

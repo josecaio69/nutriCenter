@@ -3,13 +3,11 @@
  */
 package br.com.nutriCenter.model;
 
-import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author José Caio
@@ -17,7 +15,20 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_avaliacao_anamnese")
-public class AvalicaoDeAnamnese extends AvaliacaoNutricional {
+public class AvaliacaoDeAnamnese extends AvaliacaoNutricional {
+
+
+	@NotNull(message = "Informe a descrição da avaliação")
+	@Column(name = "descricao_ou_observacoes")
+	private String descricao;
+	
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 	/*
 	@Column(name = "restricao_alimentar")
 	private String restricaoAlimentar;
