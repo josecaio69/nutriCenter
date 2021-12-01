@@ -40,6 +40,8 @@ public class Paciente extends Usuario {
     private List<Consulta> minhasConsultas;
     @Column(name = "status_do_paciente", nullable = false)
     private boolean status;
+    @Column(name = "exames_do_paciente")
+    private String exame;
 
     public Paciente() {
         super.setNivelDeAcesso(1);
@@ -67,115 +69,66 @@ public class Paciente extends Usuario {
         this.setAvaliacoesDoPaciente(avaliacoesDoPaciente);
     }
 
-
-    /**
-     * @return the cpf
-     */
     public String getCpf() {
         return cpf;
     }
 
-    /**
-     * @param cpf the cpf to set
-     */
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    /**
-     * @return the cidade
-     */
     public String getCidade() {
         return cidade;
     }
 
-    /**
-     * @param cidade the cidade to set
-     */
     public void setCidade(String cidade) {
         this.cidade = cidade;
     }
 
-    /**
-     * @return the rua
-     */
     public String getRua() {
         return rua;
     }
 
-    /**
-     * @param rua the rua to set
-     */
     public void setRua(String rua) {
         this.rua = rua;
     }
 
-    /**
-     * @return the bairro
-     */
     public String getBairro() {
         return bairro;
     }
 
-    /**
-     * @param bairro the bairro to set
-     */
     public void setBairro(String bairro) {
         this.bairro = bairro;
     }
 
-    /**
-     * @return the estado
-     */
     public String getEstado() {
         return estado;
     }
 
-    /**
-     * @param estado the estado to set
-     */
     public void setEstado(String estado) {
         this.estado = estado;
     }
 
-    /**
-     * @return the dataCadastro
-     */
     public Date getDataCadastro() {
         return dataCadastro;
     }
 
-    /**
-     * @param dataCadastro the dataCadastro to set
-     */
     public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
-    /**
-     * @return the dataUltimaConsulta
-     */
     public Date getDataUltimaConsulta() {
         return dataUltimaConsulta;
     }
 
-    /**
-     * @param dataUltimaConsulta the dataUltimaConsulta to set
-     */
     public void setDataUltimaConsulta(Date dataUltimaConsulta) {
         this.dataUltimaConsulta = dataUltimaConsulta;
     }
 
-    /**
-     * @return the avaliacoesDoPaciente
-     */
     public List<AvaliacaoNutricional> getAvaliacoesDoPaciente() {
         return avaliacoesDoPaciente;
     }
 
-    /**
-     * @param avaliacoesDoPaciente the avaliacoesDoPaciente to set
-     */
     public void setAvaliacoesDoPaciente(List<AvaliacaoNutricional> avaliacoesDoPaciente) {
         this.avaliacoesDoPaciente = avaliacoesDoPaciente;
     }
@@ -194,5 +147,13 @@ public class Paciente extends Usuario {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getExame() {
+        return exame;
+    }
+
+    public void setExame(String exame) {
+        this.exame = exame;
     }
 }

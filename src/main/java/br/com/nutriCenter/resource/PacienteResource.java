@@ -70,7 +70,7 @@ public class PacienteResource {
 	@PostMapping("/addPaciente/{idDoNutricionista}")
 	public ResponseEntity<Paciente> createFromNutricionista(@PathVariable(value = "idDoNutricionista") long idDoNutricionista, @RequestBody @Valid Paciente paciente) {
 		try {
-			System.out.println("AQUIAUIQUAUIQUIQ");
+
 			Paciente patient = this.servico.createNewPaciente(idDoNutricionista, paciente);
 			return new ResponseEntity<>(patient, HttpStatus.CREATED);
 		}catch (Exception erro){

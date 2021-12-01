@@ -26,8 +26,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * @author José Caio
  *
  */
-@XmlTransient 
-@XmlSeeAlso({AvaliacaoNutricional.class})
+
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class AvaliacaoNutricional {
