@@ -76,9 +76,9 @@ public class AvaliacaoNutricionalResourceTeste {
 	}
 
 	@Test
-	public void deveRetornarSucessoAoListarTodasAsAnamneseTeste() throws Exception {
+	public void deveRetornarSucessoAoListarTeste() throws Exception {
 
-		mockMvc.perform(get(urlBase + "/anamnese" + "/{idPaciente}", 1L).accept(MediaType.APPLICATION_JSON))
+		mockMvc.perform(get(urlBase + "/{idPaciente}/{idAvaliacao}", 1L, 1L).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 
 	}
