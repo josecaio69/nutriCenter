@@ -42,6 +42,30 @@ public class AvalicaoNutricionalService {
 		}
 
 	}
+	
+	public AvaliacaoNutricional atualizarAvalicaoAnamnese(long id, AvaliacaoDeAnamnese avaliacao) throws Exception{
+		if (avaliacao.equals(null)) {
+			throw new InvalidNutritionalAssessmentException();
+		} else if (this.pacienteService.findById(id).isEmpty()) {
+			throw new ObjectNotFoundException();
+		} else {
+
+			var paciente = this.pacienteService.findById(id).get();
+			List<AvaliacaoNutricional> avaliacoesDestePaciente = paciente.getAvaliacoesDoPaciente();
+			for(AvaliacaoNutricional a : avaliacoesDestePaciente) {
+				if(a.getId()==avaliacao.getId()) {
+					a = avaliacao;
+					break;
+				}
+					
+			}
+			paciente.setAvaliacoesDoPaciente(avaliacoesDestePaciente);
+			this.pacienteService.update(paciente);
+
+			return avaliacao;
+		}
+		
+	}
 
 	public List<AvaliacaoDeAnamnese> listarAnamnese(long id) throws Exception{
 		if (this.pacienteService.findById(id).isEmpty()) {
@@ -68,13 +92,40 @@ public class AvalicaoNutricionalService {
 		} else {
 
 			var paciente = this.pacienteService.findById(id).get();
-			for(AvaliacaoNutricional a : paciente.getAvaliacoesDoPaciente()) {
+			List<AvaliacaoNutricional> lista = paciente.getAvaliacoesDoPaciente();
+			for(AvaliacaoNutricional a : lista) {
 				if(a.getId()==idAvaliacao) {
-					paciente.getAvaliacoesDoPaciente().remove(a);
+					lista.remove(a);
+					break;
 				}
 			}
+			paciente.setAvaliacoesDoPaciente(lista);
 			this.pacienteService.update(paciente);
 		}
 	}
+
+	public AvaliacaoNutricional getAvaliacao(long id, long idAvaliacao) throws Exception{
+		if (this.pacienteService.findById(id).isEmpty()) {
+			throw new ObjectNotFoundException();
+		} else {
+
+			var paciente = this.pacienteService.findById(id).get();
+			List<AvaliacaoNutricional> lista = paciente.getAvaliacoesDoPaciente();
+			AvaliacaoNutricional ava = null;
+			
+			for(AvaliacaoNutricional a : lista) {
+				if(a.getId()==idAvaliacao) {
+					ava = a;
+					break;
+				}
+			}
+			if (ava==null) {
+				throw new ObjectNotFoundException();
+			}else {
+				return ava;
+			}
+		}
+	}
+
 
 }

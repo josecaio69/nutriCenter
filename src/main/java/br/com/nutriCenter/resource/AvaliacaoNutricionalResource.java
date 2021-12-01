@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,10 +37,24 @@ public class AvaliacaoNutricionalResource {
 
 	@PostMapping("/anamnese/{idPaciente}")
 	public ResponseEntity<AvaliacaoDeAnamnese> cadastrarAvalicaoAnamnese(
-			@PathVariable(value = "idPaciente") long idPaciente, @RequestBody @Valid AvaliacaoDeAnamnese avalicao) {
+			@PathVariable(value = "idPaciente") long idPaciente, @RequestBody @Valid AvaliacaoDeAnamnese avaliacao) {
 		try {
-			this.servicoDeAvaliacao.adicionarAvaliacao(idPaciente, avalicao);
-			return new ResponseEntity<>(avalicao, HttpStatus.CREATED);
+			this.servicoDeAvaliacao.adicionarAvaliacao(idPaciente, avaliacao);
+			return new ResponseEntity<>(avaliacao, HttpStatus.CREATED);
+		} catch (ObjectNotFoundException error) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (Exception erro) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PutMapping("/anamnese/{idPaciente}")
+	public ResponseEntity<AvaliacaoDeAnamnese> atualizarAvalicaoAnamnese(
+			@PathVariable(value = "idPaciente") long idPaciente,
+			@RequestBody AvaliacaoDeAnamnese avaliacao) {
+		try {
+			this.servicoDeAvaliacao.atualizarAvalicaoAnamnese(idPaciente, avaliacao);
+			return new ResponseEntity<>(avaliacao, HttpStatus.CREATED);
 		} catch (ObjectNotFoundException error) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} catch (Exception erro) {
@@ -52,14 +67,13 @@ public class AvaliacaoNutricionalResource {
 			@PathVariable(value = "idPaciente") long idPaciente) {
 		try {
 			List<AvaliacaoDeAnamnese> a = this.servicoDeAvaliacao.listarAnamnese(idPaciente);
-			return new ResponseEntity<List<AvaliacaoDeAnamnese>>(a, HttpStatus.CREATED);
+			return new ResponseEntity<List<AvaliacaoDeAnamnese>>(a, HttpStatus.OK);
 		} catch (ObjectNotFoundException error) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} catch (Exception erro) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
 
 	@PostMapping("/antropometrica/{idPaciente}")
 	public ResponseEntity<AvaliacaoAntropometrica> cadastrarAvalicaoAntropometrica(
@@ -100,11 +114,27 @@ public class AvaliacaoNutricionalResource {
 		}
 	}
 
-	@DeleteMapping("/{idPaciente}&={idAvaliacao}")
-	public ResponseEntity<AvaliacaoNutricional> deleteAvalicao(@PathVariable(value = "idPaciente") long idPaciente,@PathVariable(value = "idAvaliacao")  long idAvaliacao) {
+	// delete só precisa de 1 metodo
+	@DeleteMapping("/{idPaciente}/{idAvaliacao}")
+	public ResponseEntity<AvaliacaoNutricional> deleteAvalicao(@PathVariable(value = "idPaciente") long idPaciente,
+			@PathVariable(value = "idAvaliacao") long idAvaliacao) {
 		try {
 			this.servicoDeAvaliacao.deleteAvaliacao(idPaciente, idAvaliacao);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (ObjectNotFoundException error) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (Exception erro) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// get 1 só precisa de 1 metodo
+	@GetMapping("/{idPaciente}/{idAvaliacao}")
+	public ResponseEntity<AvaliacaoNutricional> getAvalicao(@PathVariable(value = "idPaciente") long idPaciente,
+			@PathVariable(value = "idAvaliacao") long idAvaliacao) {
+		try {
+			AvaliacaoNutricional a = this.servicoDeAvaliacao.getAvaliacao(idPaciente, idAvaliacao);
+			return new ResponseEntity<AvaliacaoNutricional>(a, HttpStatus.OK);
 		} catch (ObjectNotFoundException error) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} catch (Exception erro) {
