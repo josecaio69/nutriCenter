@@ -7,6 +7,8 @@ import br.com.nutriCenter.model.*;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +36,7 @@ public class AvaliacaoNutricionalResource {
 
 	@PostMapping("/anamnese/{idPaciente}")
 	public ResponseEntity<AvaliacaoDeAnamnese> cadastrarAvalicaoAnamnese(
-			@PathVariable(value = "idPaciente") long idPaciente, @RequestBody AvaliacaoDeAnamnese avalicao) {
+			@PathVariable(value = "idPaciente") long idPaciente, @RequestBody @Valid AvaliacaoDeAnamnese avalicao) {
 		try {
 			this.servicoDeAvaliacao.adicionarAvaliacao(idPaciente, avalicao);
 			return new ResponseEntity<>(avalicao, HttpStatus.CREATED);
@@ -61,7 +63,7 @@ public class AvaliacaoNutricionalResource {
 
 	@PostMapping("/antropometrica/{idPaciente}")
 	public ResponseEntity<AvaliacaoAntropometrica> cadastrarAvalicaoAntropometrica(
-			@PathVariable(value = "idPaciente") long idPaciente, @RequestBody AvaliacaoAntropometrica avalicao) {
+			@PathVariable(value = "idPaciente") long idPaciente, @RequestBody @Valid AvaliacaoAntropometrica avalicao) {
 		try {
 			this.servicoDeAvaliacao.adicionarAvaliacao(idPaciente, avalicao);
 			return new ResponseEntity<>(avalicao, HttpStatus.CREATED);
@@ -74,7 +76,7 @@ public class AvaliacaoNutricionalResource {
 
 	@PostMapping("/gastoEnergetico/{idPaciente}")
 	public ResponseEntity<AvaliacaoGastoEnergetico> cadastrarAvalicaoGastoEnergetico(
-			@PathVariable(value = "idPaciente") long idPaciente, @RequestBody AvaliacaoGastoEnergetico avalicao) {
+			@PathVariable(value = "idPaciente") long idPaciente, @RequestBody @Valid AvaliacaoGastoEnergetico avalicao) {
 		try {
 			this.servicoDeAvaliacao.adicionarAvaliacao(idPaciente, avalicao);
 			return new ResponseEntity<>(avalicao, HttpStatus.CREATED);
@@ -87,7 +89,7 @@ public class AvaliacaoNutricionalResource {
 
 	@PostMapping("/suplementacao/{idPaciente}")
 	public ResponseEntity<AvaliacaoDeSuplementacao> cadastrarAvalicaoSuplementacao(
-			@PathVariable(value = "idPaciente") long idPaciente, @RequestBody AvaliacaoDeSuplementacao avalicao) {
+			@PathVariable(value = "idPaciente") long idPaciente, @RequestBody @Valid AvaliacaoDeSuplementacao avalicao) {
 		try {
 			this.servicoDeAvaliacao.adicionarAvaliacao(idPaciente, avalicao);
 			return new ResponseEntity<>(avalicao, HttpStatus.CREATED);
