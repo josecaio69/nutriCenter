@@ -23,10 +23,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.nutriCenter.model.AvaliacaoAntropometrica;
+import br.com.nutriCenter.model.AvaliacaoDeAnamnese;
 import br.com.nutriCenter.model.AvaliacaoGastoEnergetico;
-import br.com.nutriCenter.model.AvalicaoDeAnamnese;
 import br.com.nutriCenter.resource.AvaliacaoNutricionalResource;
-import br.com.nutriCenter.services.AvalicaoNutricionalService;
 
 /**
  * @author Mateus Fernandes
@@ -45,9 +44,10 @@ public class AvaliacaoNutricionalResourceTeste {
 	private AvaliacaoNutricionalResource avaliacaoControlle;
 
 	@MockBean
-	private AvalicaoNutricionalService avalicaoNutricionalService;
+	private AvaliacaoAntropometrica avalicaoNutricionalService;
 
-	private AvalicaoDeAnamnese anamnese1;
+	private AvaliacaoDeAnamnese anamnese1;
+
 
 	private AvaliacaoAntropometrica antropometrica1;
 
@@ -100,7 +100,7 @@ public class AvaliacaoNutricionalResourceTeste {
 	@Test
 	public void deveRetornarErroAoTentarCadastrarAnamneseSemTituloTeste() throws Exception {
 
-		AvalicaoDeAnamnese anamnese;
+		AvaliacaoDeAnamnese anamnese;
 		anamnese = generateAnamnese("Descricao", 1L, "Avaliacao de anamnese", "");
 		mockMvc.perform(
 				post(urlBase + "/anamnese" + "/{idPaciente}", 1L).content(objectMapper.writeValueAsString(anamnese))
@@ -112,7 +112,7 @@ public class AvaliacaoNutricionalResourceTeste {
 	@Test
 	public void deveRetornarErroAoTentarCadastrarAnamneseSemTipoTeste() throws Exception {
 
-		AvalicaoDeAnamnese anamnese;
+		AvaliacaoDeAnamnese anamnese;
 		anamnese = generateAnamnese("Descricao", 1L, "", "anamnese");
 		mockMvc.perform(
 				post(urlBase + "/anamnese" + "/{idPaciente}", 1L).content(objectMapper.writeValueAsString(anamnese))
@@ -153,13 +153,13 @@ public class AvaliacaoNutricionalResourceTeste {
 	
 	
 	
-	private AvalicaoDeAnamnese generateAnamnese(String descricao, long id, String nomeAvaliacao, String titulo)
+	public AvaliacaoDeAnamnese generateAnamnese(String descricao, long id, String nomeAvaliacao, String titulo)
 			throws ParseException {
 
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = formato.parse("23/11/2015");
 
-		AvalicaoDeAnamnese avaliacao = new AvalicaoDeAnamnese();
+		AvaliacaoDeAnamnese avaliacao = new AvaliacaoDeAnamnese();
 		avaliacao.setData(data);
 		avaliacao.setDescricao(descricao);
 		avaliacao.setId(id);
@@ -181,7 +181,6 @@ public class AvaliacaoNutricionalResourceTeste {
 		Date data = formato.parse("23/11/2015");
 
 		avaliacao.setData(data);
-		avaliacao.setDescricao(descricao);
 		avaliacao.setDisponivel(disponivel);
 		avaliacao.setId(id);
 		avaliacao.setTipo(tipo);
@@ -219,7 +218,6 @@ public class AvaliacaoNutricionalResourceTeste {
 
 		AvaliacaoGastoEnergetico avaliacao = new AvaliacaoGastoEnergetico();
 		avaliacao.setData(data);
-		avaliacao.setDescricao(descricao);
 		avaliacao.setId(id);
 		avaliacao.setNivelDeAtividadeFisica(atividadeFisica);
 		avaliacao.setProtocolo(protocolo);

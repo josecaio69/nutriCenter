@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.nutriCenter.exception.ObjectNotFoundException;
 import br.com.nutriCenter.model.Nutricionista;
 import br.com.nutriCenter.services.NutricionistaService;
+
 /**
  * @author José Caio
  *
@@ -145,13 +146,13 @@ public class NutricionistaResource {
 	}
 
 	@GetMapping("/getAllConsultas")
-	public List<Consulta> getConsultas(){
+	public List<Consulta> getConsultas() {
 		return this.consultaService.findAll();
 	}
 
 	@PostMapping("/createConsulta/{id}/{id}")
-	public Consulta createConsulta(@RequestBody Consulta consulta){
-	return null;
+	public Consulta createConsulta(@RequestBody Consulta consulta) {
+		return null;
 	}
 
 }
