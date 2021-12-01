@@ -141,4 +141,16 @@ public class AvaliacaoNutricionalResource {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@GetMapping("getAllAntropometrica/{idPaciente}")
+	public ResponseEntity<AvaliacaoAntropometrica> getAllAntropometrica(@PathVariable(value = "idPaciente") long idPacient) {
+		try {
+			List<AvaliacaoAntropometrica> a = this.servicoDeAvaliacao.listarAntropometrica(idPacient);
+			return new ResponseEntity<AvaliacaoAntropometrica>((AvaliacaoAntropometrica) a,HttpStatus.OK);
+		} catch (ObjectNotFoundException error) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (Exception erro) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

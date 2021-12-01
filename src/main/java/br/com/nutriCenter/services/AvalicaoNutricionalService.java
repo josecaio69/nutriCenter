@@ -6,6 +6,7 @@ package br.com.nutriCenter.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.nutriCenter.model.AvaliacaoAntropometrica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -128,5 +129,22 @@ public class AvalicaoNutricionalService {
 		}
 	}
 
+	public List<AvaliacaoAntropometrica> listarAntropometrica(long id) throws Exception{
+		if (this.pacienteService.findById(id).isEmpty()) {
+			throw new ObjectNotFoundException();
+		} else {
+
+			var paciente = this.pacienteService.findById(id).get();
+			List<AvaliacaoNutricional> avaliacoesDestePaciente = paciente.getAvaliacoesDoPaciente();
+			List<AvaliacaoAntropometrica> antropometricas = new ArrayList<AvaliacaoAntropometrica>();
+			for(AvaliacaoNutricional a : avaliacoesDestePaciente) {
+				if(a.getTipo().equals("antropometrica")) {
+					antropometricas.add((AvaliacaoAntropometrica) a);
+				}
+
+			}
+			return antropometricas;
+		}
+	}
 
 }
