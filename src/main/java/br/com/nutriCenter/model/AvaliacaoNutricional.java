@@ -35,8 +35,13 @@ public abstract class AvaliacaoNutricional {
 	private long id;
 	@NotBlank
 	@Length(min = 2, message = "É obrigatorio um nome para avaliação")
-	@Column(name = "nome_da_avalicao")
-	private String nomeDaAvaliacao;
+	@Column(name = "tipo_de_avalicao")
+	private String tipo;
+
+	@NotBlank
+	@Length(min = 2, message = "É obrigatorio um nome para avaliação")
+	@Column(name = "tipo_da_avalicao")
+	private String titulo;
 	
 	@NotNull(message = "Informe a descrição da avaliação")
 	@Column(name = "descricao_ou_observacoes")
@@ -54,12 +59,20 @@ public abstract class AvaliacaoNutricional {
 		this.id = id;
 	}
 
-	public String getNomeDaAvaliacao() {
-		return nomeDaAvaliacao;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setNomeDaAvaliacao(String nomeDaAvaliacao) {
-		this.nomeDaAvaliacao = nomeDaAvaliacao;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public String getDescricao() {

@@ -15,8 +15,7 @@ import javax.persistence.Table;
 @Table(name = "avalicao_antropometrica")
 public class AvaliacaoAntropometrica extends AvaliacaoNutricional {
 
-	@Column(name = "peso_ideal",nullable = false)
-	private float pesoIdeal;
+
 	@Column(nullable = false)
 	private float altura;
 	@Column(nullable = false)
@@ -64,13 +63,6 @@ public class AvaliacaoAntropometrica extends AvaliacaoNutricional {
 	@Column(name="coxa_proximal_esquerda",nullable = false)
 	private float coxaProximalEsquerda;
 
-	public float getPesoIdeal() {
-		return pesoIdeal;
-	}
-
-	public void setPesoIdeal(float pesoIdeal) {
-		this.pesoIdeal = pesoIdeal;
-	}
 
 	public float getAltura() {
 		return altura;
