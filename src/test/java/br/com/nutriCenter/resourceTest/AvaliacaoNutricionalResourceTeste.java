@@ -98,7 +98,7 @@ public class AvaliacaoNutricionalResourceTeste {
 		avaliacao.setData(data);
 		avaliacao.setDescricao(descricao);
 		avaliacao.setId(id);
-		avaliacao.setNomeDaAvaliacao(nomeAvaliacao);
+		avaliacao.setTipo(nomeAvaliacao);
 
 		return avaliacao;
 
@@ -115,8 +115,7 @@ public class AvaliacaoNutricionalResourceTeste {
 		avaliacao.setDescricao(descricao);
 		avaliacao.setDisponivel(disponivel);
 		avaliacao.setId(id);
-		avaliacao.setNomeDaAvaliacao(nome);
-		avaliacao.setPesoIdeal(pesoIdeal);
+		avaliacao.setTipo(nome);
 
 		return avaliacao;
 	}
