@@ -25,7 +25,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.nutriCenter.model.AvaliacaoAntropometrica;
 import br.com.nutriCenter.model.AvaliacaoGastoEnergetico;
 import br.com.nutriCenter.model.AvalicaoDeAnamnese;
+import br.com.nutriCenter.resource.AvaliacaoNutricionalResource;
 import br.com.nutriCenter.services.AvalicaoNutricionalService;
+
+/**
+ * @author Mateus Fernandes
+ *
+ */
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -36,60 +42,119 @@ public class AvaliacaoNutricionalResourceTeste {
 	private MockMvc mockMvc;
 
 	@MockBean
+	private AvaliacaoNutricionalResource avaliacaoControlle;
+
+	@MockBean
 	private AvalicaoNutricionalService avalicaoNutricionalService;
 
-	private AvalicaoDeAnamnese anamnese;
+	private AvalicaoDeAnamnese anamnese1;
 
-	private AvaliacaoAntropometrica antropometrica;
+	private AvaliacaoAntropometrica antropometrica1;
 
-	private AvaliacaoGastoEnergetico gastoEnergetico;
+	private AvaliacaoGastoEnergetico gastoEnergetico1;
 
 	private final String urlBase = "/api/tratamento";
 
 	private ObjectMapper objectMapper;
 
 	@BeforeEach
-	public void setUp() throws ParseException {
+	public void setUp() throws Exception {
 		objectMapper = new ObjectMapper();
+		anamnese1 = generateAnamnese("Avaliacao de anamnese", 1L, "Anamnese", "anamnese");
+
+		antropometrica1 = generateAntropometrica(1.75f, "Descrição", true, 1L, "Antropometrica", 80, 70, 24, 23, 44, 45,
+				23, 45, 56, 23, 57, 43, 23, 34, 78, 34, 67, 67, 45, 76, 34, "Avaliacao antropometrica");
+
+		gastoEnergetico1 = generateEnergetico(175, "descricao", 1L, "corrida", 75, "12342020",
+				"Avaliacao de gasto energetico", "Gasto Energetico");
 
 	}
 
 	@Test
 	public void deveRetornarSucessoAoCriarUmaAnamneseTeste() throws Exception {
-		
-		anamnese = generateAnamnese(175, "", "", true, 1L, true, "Anamnese", 80, "nenhuma");
-		mockMvc.perform(post(urlBase + "/cadastrarAvalicao/anamnese" + "/{idPaciente}", 1L)
-				.content(objectMapper.writeValueAsString(anamnese))
+
+		mockMvc.perform(
+				post(urlBase + "/anamnese" + "/{idPaciente}", 1L).content(objectMapper.writeValueAsString(anamnese1))
+						.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+
+	}
+
+	@Test
+	public void deveRetornarSucessoAoCriarUmaAntropometricaTeste() throws Exception {
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica1))
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
 	}
-	
-	@Test
-	public void deveRetornarSucessoAoCriarUmaAntropometricaTeste() throws Exception{
 
-		antropometrica = generateAntropometrica( 175 , "", true, 0, "Antropometrica", 905 , 78 );
-		mockMvc.perform(post(urlBase + "/cadastrarAvalicao/antropometrica" + "/{idPaciente}", 1L)
+	@Test
+	public void deveRetornarSucessoAoCriarUmaEnergeticoTeste() throws Exception {
+
+		mockMvc.perform(post(urlBase + "/gastoEnergetico" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(gastoEnergetico1))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+
+	}
+
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAnamneseSemTituloTeste() throws Exception {
+
+		AvalicaoDeAnamnese anamnese;
+		anamnese = generateAnamnese("Descricao", 1L, "Avaliacao de anamnese", "");
+		mockMvc.perform(
+				post(urlBase + "/anamnese" + "/{idPaciente}", 1L).content(objectMapper.writeValueAsString(anamnese))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+				.andExpect(status().isBadRequest());
+
+	}
+
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAnamneseSemTipoTeste() throws Exception {
+
+		AvalicaoDeAnamnese anamnese;
+		anamnese = generateAnamnese("Descricao", 1L, "", "anamnese");
+		mockMvc.perform(
+				post(urlBase + "/anamnese" + "/{idPaciente}", 1L).content(objectMapper.writeValueAsString(anamnese))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+				.andExpect(status().isBadRequest());
+
+	}
+
+	
+
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaSemTituloTeste() throws Exception {
+		
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica =  generateAntropometrica(1.75f, "Descrição", true, 1L, "Antropometrica", 80, 70, 24, 23, 44, 45,
+				23, 45, 56, 23, 57, 43, 23, 34, 78, 34, 67, 67, 45, 76, 34, "");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
 				.content(objectMapper.writeValueAsString(antropometrica))
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+		
 		
 	}
 	
 	@Test
-	public void deveRetornarSucessoAoCriarUmaEnergeticoTeste() throws Exception{
-
-		gastoEnergetico = generateEnergetico( 175 , "descricao",1L, "corrida", 75 , "12342020" );
-		mockMvc.perform(post(urlBase + "/cadastrarAvalicao/gastoEnergetico" + "/{idPaciente}", 1L)
-				.content(objectMapper.writeValueAsString(gastoEnergetico))
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-
+	public void deveRetornarErroAoTentarCadastrarAntropometricaSemTipoTeste() throws Exception {
+		
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica =  generateAntropometrica(1.75f, "Descrição", true, 1L, "", 80, 70, 24, 23, 44, 45,
+				23, 45, 56, 23, 57, 43, 23, 34, 78, 34, 67, 67, 45, 76, 34, "Avaliação Antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+		
 		
 	}
 	
 	
 	
-	private AvalicaoDeAnamnese generateAnamnese(float altura, String descricao, String alcool, boolean fuma, long id,
-			boolean bebida, String nomeAvaliacao, float peso, String restricao) throws ParseException {
+	
+	
+	private AvalicaoDeAnamnese generateAnamnese(String descricao, long id, String nomeAvaliacao, String titulo)
+			throws ParseException {
 
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = formato.parse("23/11/2015");
@@ -99,13 +164,17 @@ public class AvaliacaoNutricionalResourceTeste {
 		avaliacao.setDescricao(descricao);
 		avaliacao.setId(id);
 		avaliacao.setTipo(nomeAvaliacao);
-
+		avaliacao.setTitulo(titulo);
 		return avaliacao;
 
 	}
 
 	private AvaliacaoAntropometrica generateAntropometrica(float altura, String descricao, boolean disponivel, long id,
-			String nome, float peso, float pesoIdeal) throws Exception {
+			String tipo, float peso, float abdomen, float antDireito, float antEsquerdo, float bDContraido,
+			float bDRelaxado, float bEContraido, float bERelaxado, float cintura, float coxaEsquerda,
+			float coxaProxDireita, float coxDireita, float coxaProxEsquerda, float ombro, float pantDireita,
+			float pantEsquerda, float peitoral, float pescoco, float punhoDirei, float punhoEsquer, float quadril,
+			String titulo) throws Exception {
 
 		AvaliacaoAntropometrica avaliacao = new AvaliacaoAntropometrica();
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -115,52 +184,51 @@ public class AvaliacaoNutricionalResourceTeste {
 		avaliacao.setDescricao(descricao);
 		avaliacao.setDisponivel(disponivel);
 		avaliacao.setId(id);
-		avaliacao.setTipo(nome);
-
+		avaliacao.setTipo(tipo);
+		avaliacao.setAltura(altura);
+		avaliacao.setPeso(peso);
+		avaliacao.setAbdomen(abdomen);
+		avaliacao.setAntebracoDireito(antDireito);
+		avaliacao.setAntebracoEsquerdo(antEsquerdo);
+		avaliacao.setBracoDireitoContraido(bDContraido);
+		avaliacao.setBracoDireitoRelaxado(bDRelaxado);
+		avaliacao.setBracoEsquerdoContraido(bEContraido);
+		avaliacao.setBracoEsquerdoRelaxado(bERelaxado);
+		avaliacao.setCintura(cintura);
+		avaliacao.setCoxaDireita(coxDireita);
+		avaliacao.setCoxaEsquerda(coxaEsquerda);
+		avaliacao.setCoxaProximalDireita(coxaProxDireita);
+		avaliacao.setCoxaProximalEsquerda(coxaProxEsquerda);
+		avaliacao.setOmbro(ombro);
+		avaliacao.setPanturrilhaDireita(pantDireita);
+		avaliacao.setPanturrilhaEsquerda(pantEsquerda);
+		avaliacao.setPeitoral(peitoral);
+		avaliacao.setPescoco(pescoco);
+		avaliacao.setPunhoDireito(punhoDirei);
+		avaliacao.setPunhoEsquerdo(punhoEsquer);
+		avaliacao.setQuadril(quadril);
+		avaliacao.setTitulo(titulo);
 		return avaliacao;
 	}
 
-	private AvaliacaoGastoEnergetico generateEnergetico(float altura, String descricao, long id, String atividadeFisica, float peso, String protocolo) throws Exception{
-		
+	private AvaliacaoGastoEnergetico generateEnergetico(float altura, String descricao, long id, String atividadeFisica,
+			float peso, String protocolo, String tipo, String titulo) throws Exception {
+
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = formato.parse("23/11/2015");
-		
+
 		AvaliacaoGastoEnergetico avaliacao = new AvaliacaoGastoEnergetico();
 		avaliacao.setData(data);
 		avaliacao.setDescricao(descricao);
 		avaliacao.setId(id);
 		avaliacao.setNivelDeAtividadeFisica(atividadeFisica);
 		avaliacao.setProtocolo(protocolo);
-	
+		avaliacao.setPeso(peso);
+		avaliacao.setAltura(altura);
+		avaliacao.setTipo(tipo);
+		avaliacao.setTitulo(titulo);
 		return avaliacao;
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
