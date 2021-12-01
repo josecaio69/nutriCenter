@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.br.CPF;
 
 /**
@@ -34,7 +35,7 @@ public class Paciente extends Usuario {
     private String estado;
     private Date dataCadastro;
     private Date dataUltimaConsulta;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade =CascadeType.ALL )
     private List<AvaliacaoNutricional> avaliacoesDoPaciente;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Consulta> minhasConsultas;

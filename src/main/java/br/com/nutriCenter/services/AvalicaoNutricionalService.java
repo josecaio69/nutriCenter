@@ -43,7 +43,7 @@ public class AvalicaoNutricionalService {
 
 	}
 	
-	public AvaliacaoNutricional atualizarAvalicaoAnamnese(long id, AvaliacaoDeAnamnese avaliacao) throws Exception{
+	public AvaliacaoNutricional atualizarAvalicaoAnamnese(long id, AvaliacaoNutricional avaliacao) throws Exception{
 		if (avaliacao.equals(null)) {
 			throw new InvalidNutritionalAssessmentException();
 		} else if (this.pacienteService.findById(id).isEmpty()) {
@@ -52,9 +52,10 @@ public class AvalicaoNutricionalService {
 
 			var paciente = this.pacienteService.findById(id).get();
 			List<AvaliacaoNutricional> avaliacoesDestePaciente = paciente.getAvaliacoesDoPaciente();
-			for(AvaliacaoNutricional a : avaliacoesDestePaciente) {
+			for(AvaliacaoNutricional  a : avaliacoesDestePaciente) {
 				if(a.getId()==avaliacao.getId()) {
-					a = avaliacao;
+					avaliacoesDestePaciente.remove(a);
+					avaliacoesDestePaciente.add(avaliacao);
 					break;
 				}
 					
