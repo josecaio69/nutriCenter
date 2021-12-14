@@ -35,7 +35,7 @@ public class Paciente extends Usuario {
     private String estado;
     private Date dataCadastro;
     private Date dataUltimaConsulta;
-    @OneToMany(fetch = FetchType.LAZY, cascade =CascadeType.ALL )
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE} )
     private List<AvaliacaoNutricional> avaliacoesDoPaciente;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Consulta> minhasConsultas;

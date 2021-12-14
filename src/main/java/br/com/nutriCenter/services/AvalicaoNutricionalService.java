@@ -44,7 +44,7 @@ public class AvalicaoNutricionalService {
 
 	}
 	
-	public AvaliacaoNutricional atualizarAvalicaoAnamnese(long id, AvaliacaoNutricional avaliacao) throws Exception{
+	public AvaliacaoNutricional atualizarAvalicao(long id, AvaliacaoNutricional avaliacao) throws Exception{
 		if (avaliacao.equals(null)) {
 			throw new InvalidNutritionalAssessmentException();
 		} else if (this.pacienteService.findById(id).isEmpty()) {
@@ -68,44 +68,7 @@ public class AvalicaoNutricionalService {
 		}
 		
 	}
-
-	public List<AvaliacaoDeAnamnese> listarAnamnese(long id) throws Exception{
-		if (this.pacienteService.findById(id).isEmpty()) {
-			throw new ObjectNotFoundException();
-		} else {
-
-			var paciente = this.pacienteService.findById(id).get();
-			List<AvaliacaoNutricional> avaliacoesDestePaciente = paciente.getAvaliacoesDoPaciente();
-			List<AvaliacaoDeAnamnese> anamnese = new ArrayList<AvaliacaoDeAnamnese>();
-			for(AvaliacaoNutricional a : avaliacoesDestePaciente) {
-				if(a.getTipo().equals("anamnese")) {
-					anamnese.add((AvaliacaoDeAnamnese) a);
-				}
-					
-			}
-			return anamnese;
-		}
-	}
-
 	
-	public void deleteAvaliacao(long id, long idAvaliacao) throws Exception{
-		if (this.pacienteService.findById(id).isEmpty()) {
-			throw new ObjectNotFoundException();
-		} else {
-
-			var paciente = this.pacienteService.findById(id).get();
-			List<AvaliacaoNutricional> lista = paciente.getAvaliacoesDoPaciente();
-			for(AvaliacaoNutricional a : lista) {
-				if(a.getId()==idAvaliacao) {
-					lista.remove(a);
-					break;
-				}
-			}
-			paciente.setAvaliacoesDoPaciente(lista);
-			this.pacienteService.update(paciente);
-		}
-	}
-
 	public AvaliacaoNutricional getAvaliacao(long id, long idAvaliacao) throws Exception{
 		if (this.pacienteService.findById(id).isEmpty()) {
 			throw new ObjectNotFoundException();
@@ -128,22 +91,84 @@ public class AvalicaoNutricionalService {
 			}
 		}
 	}
+	
+	
+	public void deleteAvaliacao(long id, long idAvaliacao) throws Exception{
+		if (this.pacienteService.findById(id).isEmpty()) {
+			throw new ObjectNotFoundException();
+		} else {
 
-	public List<AvaliacaoAntropometrica> listarAntropometrica(long id) throws Exception{
+			var paciente = this.pacienteService.findById(id).get();
+			List<AvaliacaoNutricional> lista = paciente.getAvaliacoesDoPaciente();
+			for(AvaliacaoNutricional a : lista) {
+				if(a.getId()==idAvaliacao) {
+					lista.remove(a);
+					break;
+				}
+			}
+			paciente.setAvaliacoesDoPaciente(lista);
+			this.pacienteService.update(paciente);
+		}
+	}
+	
+	
+	public List<AvaliacaoNutricional> listarAvaliacoes(long id)  throws Exception{
+		if (this.pacienteService.findById(id).isEmpty()) {
+			throw new ObjectNotFoundException();
+		} else {
+
+			var paciente = this.pacienteService.findById(id).get();
+			List<AvaliacaoNutricional> lista = paciente.getAvaliacoesDoPaciente();
+			return lista;
+		}
+	}
+	
+	
+	/*
+	 * os metodos daqui para cima não precisar ser diferenciados pelo tipo de avaliação AQUI NO SERVICE
+	 * 
+	 * =========================================================================================
+	 * 
+	 * os metodos daqui para baixo precisam ser diferenciados pelo tipo AQUI NO SERVICE
+	 * (no caso serão apenas os metodos de listar por tipo de avaliação)
+	 */
+	
+
+	public List<AvaliacaoDeAnamnese> listarAnamnese(long id) throws Exception{
 		if (this.pacienteService.findById(id).isEmpty()) {
 			throw new ObjectNotFoundException();
 		} else {
 
 			var paciente = this.pacienteService.findById(id).get();
 			List<AvaliacaoNutricional> avaliacoesDestePaciente = paciente.getAvaliacoesDoPaciente();
-			List<AvaliacaoAntropometrica> antropometricas = new ArrayList<AvaliacaoAntropometrica>();
+			List<AvaliacaoDeAnamnese> anamnese = new ArrayList<AvaliacaoDeAnamnese>();
+			for(AvaliacaoNutricional a : avaliacoesDestePaciente) {
+				if(a.getTipo().equals("anamnese")) {
+					anamnese.add((AvaliacaoDeAnamnese) a);
+				}
+					
+			}
+			return anamnese;
+		}
+	}
+	
+
+	
+	public List<AvaliacaoAntropometrica> listarAntropometrica(long id) throws Exception{
+		if (this.pacienteService.findById(id).isEmpty()) {
+			throw new ObjectNotFoundException();
+		} else {
+			
+			var paciente = this.pacienteService.findById(id).get();
+			List<AvaliacaoNutricional> avaliacoesDestePaciente = paciente.getAvaliacoesDoPaciente();
+			List<AvaliacaoAntropometrica> antropometrica = new ArrayList<AvaliacaoAntropometrica>();
 			for(AvaliacaoNutricional a : avaliacoesDestePaciente) {
 				if(a.getTipo().equals("antropometrica")) {
-					antropometricas.add((AvaliacaoAntropometrica) a);
+					antropometrica.add((AvaliacaoAntropometrica) a);
 				}
-
+				
 			}
-			return antropometricas;
+			return antropometrica;
 		}
 	}
 

@@ -19,16 +19,20 @@ import javax.persistence.Table;
 @Table(name = "avalicao_gasto_energetico")
 public class AvaliacaoGastoEnergetico extends AvaliacaoNutricional {
 
+	@Column(name = "protocolo", nullable = false)
 	private String protocolo;
+	
 	@Column(name = "peso_paciente", nullable = false)
 	private float peso;
+	
 	@Column(name = "altura_paciente", nullable = false)
 	private float  altura;
 
-	@Column(name = "nivel_de_atividade_fisica", nullable = false)
-	private String nivelDeAtividadeFisica;
-	@ElementCollection(fetch = FetchType.LAZY)
-	private List<String> patologia;
+	@Column(name = "nivel_de_atividade", nullable = false)
+	private String nivelDeAtividade;
+	
+	@Column(name = "fator_de_injuria", nullable = false)
+	private String injuria;
 
 	public String getProtocolo() {
 		return protocolo;
@@ -54,19 +58,21 @@ public class AvaliacaoGastoEnergetico extends AvaliacaoNutricional {
 		this.altura = altura;
 	}
 
-	public String getNivelDeAtividadeFisica() {
-		return nivelDeAtividadeFisica;
+	public String getNivelDeAtividade() {
+		return nivelDeAtividade;
 	}
 
-	public void setNivelDeAtividadeFisica(String nivelDeAtividadeFisica) {
-		this.nivelDeAtividadeFisica = nivelDeAtividadeFisica;
+	public void setNivelDeAtividade(String nivelDeAtividade) {
+		this.nivelDeAtividade = nivelDeAtividade;
 	}
 
-	public List<String> getPatologia() {
-		return patologia;
+	public String getInjuria() {
+		return injuria;
 	}
 
-	public void setPatologia(List<String> patologia) {
-		this.patologia = patologia;
+	public void setInjuria(String injuria) {
+		this.injuria = injuria;
 	}
+
+	
 }

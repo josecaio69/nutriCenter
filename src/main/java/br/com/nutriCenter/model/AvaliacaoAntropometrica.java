@@ -36,7 +36,7 @@ public class AvaliacaoAntropometrica extends AvaliacaoNutricional {
 	private float antebracoEsquerdo;
 	@Column(name = "punho_direito", nullable = false)
 	private float punhoDireito;
-	@Column(name = "punho_esuqerdo", nullable = false)
+	@Column(name = "punho_esquerdo", nullable = false)
 	private float punhoEsquerdo;
 	@Column(nullable = false)
 	private float pescoco;

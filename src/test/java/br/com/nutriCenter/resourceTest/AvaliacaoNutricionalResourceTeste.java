@@ -278,7 +278,7 @@ public class AvaliacaoNutricionalResourceTeste {
 		AvaliacaoGastoEnergetico avaliacao = new AvaliacaoGastoEnergetico();
 		avaliacao.setData(data);
 		avaliacao.setId(id);
-		avaliacao.setNivelDeAtividadeFisica(atividadeFisica);
+		avaliacao.setNivelDeAtividade(atividadeFisica);
 		avaliacao.setProtocolo(protocolo);
 		avaliacao.setPeso(peso);
 		avaliacao.setAltura(altura);
