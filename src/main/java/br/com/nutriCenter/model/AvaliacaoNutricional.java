@@ -36,11 +36,11 @@ public abstract class AvaliacaoNutricional {
 
 	@NotBlank
 	@Length(min = 2, message = "É obrigatorio um nome para avaliação")
-	@Column(name = "tipo_da_avalicao")
+	@Column(name = "titulo_da_avalicao")
 	private String titulo;
 	
 	@NotNull(message = "A data não pode ser nula")
-	@Column(name = "data_de_realizacao")
+	@Column(name = "data_de_cadastro")
 	private Date data;
 
 	public long getId() {

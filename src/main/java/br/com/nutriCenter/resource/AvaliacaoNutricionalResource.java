@@ -245,7 +245,40 @@ public class AvaliacaoNutricionalResource {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+		
+	/*
+	 * ==========================================================================
+	 * METODOS DE PLANO ALIMENTAR
+	 * ==========================================================================
+	 */
 
+	@PostMapping(value={"/planoAlimentar/{idPaciente}","/recordatorioAlimentar/{idPaciente}"})
+	public ResponseEntity<AvaliacaoAlimentar> cadastrarAvalicaoAlimentar(
+			@PathVariable(value = "idPaciente") long idPaciente,
+			@RequestBody @Valid AvaliacaoAlimentar avalicao) {
+		try {
+			this.servicoDeAvaliacao.adicionarAvaliacao(idPaciente, avalicao);
+			return new ResponseEntity<>(avalicao, HttpStatus.CREATED);
+		} catch (ObjectNotFoundException error) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (Exception erro) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PutMapping(value={"/planoAlimentar/{idPaciente}","/recordatorioAlimentar/{idPaciente}"})
+	public ResponseEntity<AvaliacaoAlimentar> atualizarAvaliacaoAlimentar(@PathVariable(value = "idPaciente") long idPaciente,
+			@RequestBody AvaliacaoAlimentar avaliacao) {
+		try {
+			this.servicoDeAvaliacao.atualizarAvalicao(idPaciente, avaliacao);
+			return new ResponseEntity<>(avaliacao, HttpStatus.CREATED);
+		} catch (ObjectNotFoundException error) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (Exception erro) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	/*
 	 * ===========================================================================*
 	 * METODOS DE SUPLEMENTAÇÃO *
