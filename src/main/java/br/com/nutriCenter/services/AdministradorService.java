@@ -3,7 +3,12 @@ package br.com.nutriCenter.services;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.nutriCenter.exception.LoginInvalidException;
+import br.com.nutriCenter.exception.PasswordInvalidException;
+import br.com.nutriCenter.model.Login;
+import br.com.nutriCenter.model.Nutricionista;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.nutriCenter.exception.ObjectNotFoundException;
@@ -19,9 +24,25 @@ public class AdministradorService {
 
 	@Autowired
 	private AdministradorRepository repositorio;
+	@Autowired
+	private PasswordEncoder enconder;
 
 	public Administrador create(Administrador adm) throws Exception {
+		String senha = enconder.encode(adm.getSenha());
+		adm.setSenha(senha);
 		return this.repositorio.save(adm);
+	}
+
+	public Optional<Administrador> findByEmail(Login login) throws Exception {
+		Optional<Administrador> user = Optional.empty();
+		user=(this.repositorio.findByEmail(login.getUserName()));
+		var verifySenha = this.enconder.matches(login.getPassword(),user.get().getSenha());
+		if(verifySenha){
+			return user;
+		}else if(!verifySenha){
+			throw new PasswordInvalidException();
+		}
+		throw new LoginInvalidException();
 	}
 
 	public List<Administrador> findAll() throws Exception {
@@ -76,8 +97,16 @@ public class AdministradorService {
 	}
 
 	/* Verificar se um objeto adm existe no BD */
-	private boolean isExist(long id) throws Exception {
+	public boolean isExist(long id) throws Exception {
 		if (!this.repositorio.findById(id).isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean searchForEmail(String email){
+		if (!this.repositorio.findByEmail(email).isEmpty()) {
 			return true;
 		} else {
 			return false;

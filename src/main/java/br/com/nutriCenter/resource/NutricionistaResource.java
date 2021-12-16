@@ -45,7 +45,7 @@ public class NutricionistaResource {
 	}
 
 	/* GET listando todos os objetos do banco */
-	@GetMapping("getAll")
+	@GetMapping("/getAll")
 	public ResponseEntity<List<Nutricionista>> findAll() {
 		try {
 			return new ResponseEntity<>(this.servico.findAll(), HttpStatus.OK);

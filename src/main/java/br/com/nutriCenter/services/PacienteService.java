@@ -3,8 +3,12 @@ package br.com.nutriCenter.services;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.nutriCenter.exception.LoginInvalidException;
+import br.com.nutriCenter.exception.PasswordInvalidException;
+import br.com.nutriCenter.model.Login;
 import br.com.nutriCenter.model.Nutricionista;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.nutriCenter.exception.ObjectNotFoundException;
@@ -22,6 +26,9 @@ public class PacienteService {
     private PacienteRepository repositorio;
 
     @Autowired
+    private PasswordEncoder enconder;
+
+    @Autowired
     private NutricionistaService nutricionistaService;
 
     public Optional<Paciente> findById(long id) throws Exception {
@@ -30,6 +37,18 @@ public class PacienteService {
         } else {
             throw new ObjectNotFoundException();
         }
+    }
+
+    public Optional<Paciente> findByEmail(Login login) throws Exception {
+        Optional<Paciente> user = Optional.empty();
+        user=(this.repositorio.findByEmail(login.getUserName()));
+        var verifySenha = this.enconder.matches(login.getPassword(),user.get().getSenha());
+        if(verifySenha){
+            return user;
+        }else if(!verifySenha){
+            throw new PasswordInvalidException();
+        }
+        throw new LoginInvalidException();
     }
 
     public Optional<Paciente> findByCpf(String cpf) throws Exception {
@@ -68,6 +87,8 @@ public class PacienteService {
     }
 
     public Paciente create(Paciente paciente) throws Exception {
+        String senha = enconder.encode(paciente.getSenha());
+        paciente.setSenha(senha);
         return repositorio.save(paciente);
     }
 
@@ -108,12 +129,22 @@ public class PacienteService {
     }
 
     /* Verificar a existencia de um objeto do tipo paciente no bd */
-    private boolean isExist(long id) {
+    public boolean isExist(long id){
         if (!this.repositorio.findById(id).isEmpty()) {
             return true;
         } else {
             return false;
         }
     }
+
+    public boolean searchForEmail(String email){
+        if (!this.repositorio.findByEmail(email).isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 
 }
