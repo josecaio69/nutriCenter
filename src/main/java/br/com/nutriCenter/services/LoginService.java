@@ -27,9 +27,7 @@ public class LoginService {
 
     private Usuario user;
 
-/*
-FALTA TER%MINAR
- */
+
     public Usuario logarUsuario(Login login) throws Exception {
         if(this.nutricionistaService.searchForEmail(login.getUserName()))
             return nutricionistaService.findByEmail(login).get();
