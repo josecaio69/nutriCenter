@@ -3,7 +3,6 @@ package br.com.nutriCenter.resource;
 import br.com.nutriCenter.exception.ObjectNotFoundException;
 import br.com.nutriCenter.exception.PasswordInvalidException;
 import br.com.nutriCenter.model.Login;
-import br.com.nutriCenter.model.Usuario;
 import br.com.nutriCenter.services.EnverEmailService;
 import br.com.nutriCenter.services.LoginService;
 import br.com.nutriCenter.services.NutricionistaService;
@@ -38,7 +37,14 @@ public class LoginResource {
     }
 
     @GetMapping("/recuperarSenha")
-    public ResponseEntity<?> recuperarPassword(@RequestBody Login login) {
-        return null;
+    public ResponseEntity<?> recuperarPassword(@RequestBody Login login){
+        try {
+            loginService.recoveyPassword(login.getUserName());
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (ObjectNotFoundException error){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }catch (Exception erro){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

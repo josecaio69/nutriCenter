@@ -106,6 +106,11 @@ public class PacienteService {
         return paciente;
     }
 
+    public Optional<Paciente> findByEmail(String email) throws Exception{
+        return Optional.ofNullable(this.repositorio.findByEmail(email).orElseThrow(
+                ObjectNotFoundException::new));
+    }
+
 
     public void delete(Paciente paciente) throws Exception {
         if (this.isExist(paciente.getId())) {

@@ -45,6 +45,11 @@ public class AdministradorService {
 		throw new LoginInvalidException();
 	}
 
+	public Optional<Administrador> findByEmail(String email) throws Exception{
+		return Optional.ofNullable(this.repositorio.findByEmail(email).orElseThrow(
+				ObjectNotFoundException::new));
+	}
+
 	public List<Administrador> findAll() throws Exception {
 		return repositorio.findAll();
 	}

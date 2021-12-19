@@ -64,6 +64,9 @@ public class Usuario implements Serializable {
 	@Column(name = "sexo")
 	private String genero;
 
+	@Column(name = "senha_temporaria")
+	private boolean senhaTemp ;
+
 	
 	/**
 	 * @return the id
@@ -191,4 +194,11 @@ public class Usuario implements Serializable {
 		this.genero = genero;
 	}
 
+	public boolean isSenhaTemp() {
+		return senhaTemp;
+	}
+
+	public void setSenhaTemp(boolean senhaTemp) {
+		this.senhaTemp = senhaTemp;
+	}
 }

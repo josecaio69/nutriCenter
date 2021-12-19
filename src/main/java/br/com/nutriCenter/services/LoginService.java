@@ -24,9 +24,8 @@ public class LoginService {
     private AdministradorService administradorService;
     @Autowired
     private PasswordEncoder enconder;
-
-    private Usuario user;
-
+    @Autowired
+    private EnverEmailService emailService;
 
     public Usuario logarUsuario(Login login) throws Exception {
         if(this.nutricionistaService.searchForEmail(login.getUserName()))
@@ -35,14 +34,44 @@ public class LoginService {
         if(this.pacienteService.searchForEmail(login.getUserName()))
             return pacienteService.findByEmail(login).get();
 
-        if(this.administradorService.searchForEmail(login.getUserName())) {
+        if(this.administradorService.searchForEmail(login.getUserName()))
             return administradorService.findByEmail(login).get();
-        }
+
 
     throw new ObjectNotFoundException();
     }
 
+    public void recoveyPassword(String email) throws Exception{
+        if(this.nutricionistaService.searchForEmail(email)){
+           Nutricionista nutricionista = this.nutricionistaService.findByEmail(email).get();
+           String passwordTemp = emailService.gerarSenhaAleatoria();
+           String encoderPassaword = this.enconder.encode(passwordTemp);
+           nutricionista.setSenha(encoderPassaword);
+           nutricionista.setSenhaTemp(true);
+           emailService.sendSimpleMessage(email,passwordTemp);
+           nutricionistaService.update(nutricionista);
+        }
 
+        if(this.pacienteService.searchForEmail(email)){
+            Paciente paciente = this.pacienteService.findByEmail(email).get();
+            String passwordTemp = emailService.gerarSenhaAleatoria();
+            String encoderPassaword = this.enconder.encode(passwordTemp);
+            paciente.setSenha(encoderPassaword);
+            paciente.setSenhaTemp(true);
+            emailService.sendSimpleMessage(email,passwordTemp);
+            pacienteService.update(paciente);
+        }
 
+        if(this.administradorService.searchForEmail(email)){
+            Administrador adm = this.administradorService.findByEmail(email).get();
+            String passwordTemp = emailService.gerarSenhaAleatoria();
+            String encoderPassaword = this.enconder.encode(passwordTemp);
+            adm.setSenha(encoderPassaword);
+            adm.setSenhaTemp(true);
+            emailService.sendSimpleMessage(email,passwordTemp);
+            administradorService.update(adm);
+        }
+
+    }
 
 }

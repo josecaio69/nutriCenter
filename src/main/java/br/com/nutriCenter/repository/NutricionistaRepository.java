@@ -20,8 +20,9 @@ public interface NutricionistaRepository extends JpaRepository<Nutricionista, Lo
 	List<Nutricionista> findByNomeContaining(String nome);
 
 	Optional<Nutricionista> findByEmail(String email);
-	//@Query("select n from Nutricionista n where n.email = :email and n.senha = :senha")
-	//Optional<Nutricionista> findByEmailAndPassword(String email, String senha);
+
+	@Query("select n from Nutricionista n where n.email = :email and n.senha = :senha")
+	Optional<Nutricionista> findByEmailAndPassword(String email, String senha);
 
 
 

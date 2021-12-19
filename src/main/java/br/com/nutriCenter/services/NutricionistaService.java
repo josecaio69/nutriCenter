@@ -44,11 +44,10 @@ public class NutricionistaService {
         throw new LoginInvalidException();
     }
 
-//    public Nutricionista findByEmailAndPass(Login login) throws Exception {
-//        //String passEnconder = this.enconder.upgradeEncoding(login.getPassword());
-//        var user = this.repositorio.findByEmailAndPassword(login.getUserName(), login.getPassword());
-//        return user.orElseThrow(ObjectNotFoundException::new);
-//    }
+    public Optional<Nutricionista> findByEmail(String email) throws Exception{
+        return Optional.ofNullable(this.repositorio.findByEmail(email).orElseThrow(
+                ObjectNotFoundException::new));
+    }
 
     public List<Nutricionista> findAll() throws Exception {
         return this.repositorio.findAll();
