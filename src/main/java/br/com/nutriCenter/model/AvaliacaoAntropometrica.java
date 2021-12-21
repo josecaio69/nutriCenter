@@ -6,6 +6,8 @@ package br.com.nutriCenter.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author José Caio
@@ -15,52 +17,119 @@ import javax.persistence.Table;
 @Table(name = "avalicao_antropometrica")
 public class AvaliacaoAntropometrica extends AvaliacaoNutricional {
 
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "Informe a altura")
 	@Column(nullable = false)
 	private float altura;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "Informe a peso")
 	@Column(nullable = false)
 	private float peso;
 	@Column(name = "paciente_disponivel", nullable = false)
 	private boolean isDisponivel;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(name = "braco_direito_relaxado", nullable = false)
 	private float bracoDireitoRelaxado;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(name = "braco_esquerdo_relaxado", nullable = false)
 	private float bracoEsquerdoRelaxado;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(name = "braco_direito_contraido", nullable = false)
 	private float bracoDireitoContraido;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(name = "braco_esquerdo_contraido", nullable = false)
 	private float bracoEsquerdoContraido;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(name = "antebraco_direito", nullable = false)
 	private float antebracoDireito;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(name = "antebracoEsquerdo", nullable = false)
 	private float antebracoEsquerdo;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(name = "punho_direito", nullable = false)
 	private float punhoDireito;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(name = "punho_esquerdo", nullable = false)
 	private float punhoEsquerdo;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(nullable = false)
 	private float pescoco;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(nullable = false)
 	private float ombro;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(nullable = false)
 	private float peitoral;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(nullable = false)
 	private float cintura;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(nullable = false)
 	private float abdomen;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(nullable = false)
 	private float quadril;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(name = "panturrilha_direita", nullable = false)
 	private float panturrilhaDireita;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(name = "panturrilha_esquerda", nullable = false)
 	private float panturrilhaEsquerda;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(name = "coxa_direita", nullable = false)
 	private float coxaDireita;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(name = "coxa_esquerda", nullable = false)
 	private float coxaEsquerda;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(name = "coxa_proximal_direita", nullable = false)
 	private float coxaProximalDireita;
+
+	@Max(value = 3, message = "O valor maximo permitido é 3")
+	@NotNull(message = "O campo deve ser preenchido")
 	@Column(name = "coxa_proximal_esquerda", nullable = false)
 	private float coxaProximalEsquerda;
+
 
 	public float getAltura() {
 		return altura;
