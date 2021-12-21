@@ -30,12 +30,12 @@ public abstract class AvaliacaoNutricional {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	@NotBlank
-	@Length(min = 2, message = "É obrigatorio um nome para avaliação")
+	@Length(min = 2, message = "É obrigatorio um tipo para a avaliação")
 	@Column(name = "tipo_de_avalicao")
 	private String tipo;
 
 	@NotBlank
-	@Length(min = 2, message = "É obrigatorio um nome para avaliação")
+	@Length(min = 2, message = "É obrigatorio um titulo para a avaliação")
 	@Column(name = "titulo_da_avalicao")
 	private String titulo;
 	

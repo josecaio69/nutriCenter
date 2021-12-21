@@ -20,8 +20,7 @@ public class EnverEmailService {
     private ConfigEnvioDeEmail email;
     private SimpleMailMessage message;
 
-    protected void sendSimpleMessage(
-            String destinatario, String corpoDaMensagem) {
+	protected void sendSimpleMessage(String destinatario, String corpoDaMensagem) {
         email = ConfigEnvioDeEmail.getInstance();
         message = new SimpleMailMessage();
         message.setFrom(REMENTENTE);

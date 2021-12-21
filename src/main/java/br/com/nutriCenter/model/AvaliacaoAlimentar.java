@@ -18,7 +18,7 @@ public class AvaliacaoAlimentar extends AvaliacaoNutricional{
 	private String dias;
 	
 	@ElementCollection
-	@NotNull(message = "Informe os dias desta avaliação")
+	@NotNull(message = "Informe as refeições desta avaliação")
 	private List<Refeicao> refeicao;
 	
 	@Column(name = "observacoes")

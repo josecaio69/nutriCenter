@@ -3,7 +3,6 @@ package br.com.nutriCenter.repository;
 import java.util.List;
 import java.util.Optional;
 
-import br.com.nutriCenter.model.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.nutriCenter.model.Nutricionista;

@@ -80,6 +80,7 @@ public class AdministradorService {
 
 	public Administrador update(Administrador adm) throws Exception {
 		if (this.isExist(adm.getId())) {
+			adm.setSenha(enconder.encode(adm.getSenha()));
 			return repositorio.save(adm);
 		} else {
 			throw new ObjectNotFoundException();

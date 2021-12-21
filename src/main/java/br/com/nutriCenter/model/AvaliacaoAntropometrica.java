@@ -15,12 +15,11 @@ import javax.persistence.Table;
 @Table(name = "avalicao_antropometrica")
 public class AvaliacaoAntropometrica extends AvaliacaoNutricional {
 
-
 	@Column(nullable = false)
 	private float altura;
 	@Column(nullable = false)
 	private float peso;
-	@Column(name = "paciente_disponivel",nullable = false)
+	@Column(name = "paciente_disponivel", nullable = false)
 	private boolean isDisponivel;
 	@Column(name = "braco_direito_relaxado", nullable = false)
 	private float bracoDireitoRelaxado;
@@ -30,7 +29,7 @@ public class AvaliacaoAntropometrica extends AvaliacaoNutricional {
 	private float bracoDireitoContraido;
 	@Column(name = "braco_esquerdo_contraido", nullable = false)
 	private float bracoEsquerdoContraido;
-	@Column(name = "antebraco_direito",nullable = false)
+	@Column(name = "antebraco_direito", nullable = false)
 	private float antebracoDireito;
 	@Column(name = "antebracoEsquerdo", nullable = false)
 	private float antebracoEsquerdo;
@@ -50,19 +49,18 @@ public class AvaliacaoAntropometrica extends AvaliacaoNutricional {
 	private float abdomen;
 	@Column(nullable = false)
 	private float quadril;
-	@Column(name="panturrilha_direita",nullable = false)
+	@Column(name = "panturrilha_direita", nullable = false)
 	private float panturrilhaDireita;
-	@Column(name="panturrilha_esquerda",nullable = false)
+	@Column(name = "panturrilha_esquerda", nullable = false)
 	private float panturrilhaEsquerda;
-	@Column(name="coxa_direita",nullable = false)
+	@Column(name = "coxa_direita", nullable = false)
 	private float coxaDireita;
-	@Column(name="coxa_esquerda",nullable = false)
+	@Column(name = "coxa_esquerda", nullable = false)
 	private float coxaEsquerda;
-	@Column(name="coxa_proximal_direita",nullable = false)
+	@Column(name = "coxa_proximal_direita", nullable = false)
 	private float coxaProximalDireita;
-	@Column(name="coxa_proximal_esquerda",nullable = false)
+	@Column(name = "coxa_proximal_esquerda", nullable = false)
 	private float coxaProximalEsquerda;
-
 
 	public float getAltura() {
 		return altura;

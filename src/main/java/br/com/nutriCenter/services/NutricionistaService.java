@@ -34,7 +34,7 @@ public class NutricionistaService {
 
     public Optional<Nutricionista> findByEmail(Login login) throws Exception {
         Optional<Nutricionista> user = Optional.empty();
-        user=(this.repositorio.findByEmail(login.getUserName()));
+        user = repositorio.findByEmail(login.getUserName());
         var verifySenha = this.enconder.matches(login.getPassword(),user.get().getSenha());
         if(verifySenha){
             return user;
@@ -86,6 +86,7 @@ public class NutricionistaService {
         if (!this.repositorio.findById(nutricionista.getId()).isPresent()) {
             throw new ObjectNotFoundException();
         } else {
+        	nutricionista.setSenha(enconder.encode(nutricionista.getSenha()));
             return this.repositorio.save(nutricionista);
 
         }

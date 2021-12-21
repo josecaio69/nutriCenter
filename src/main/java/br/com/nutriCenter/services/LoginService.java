@@ -1,17 +1,15 @@
 package br.com.nutriCenter.services;
 
-import br.com.nutriCenter.exception.LoginInvalidException;
-import br.com.nutriCenter.exception.ObjectNotFoundException;
-import br.com.nutriCenter.exception.PasswordInvalidException;
-import br.com.nutriCenter.model.*;
-import org.apache.logging.log4j.LoggingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import br.com.nutriCenter.exception.ObjectNotFoundException;
+import br.com.nutriCenter.model.Administrador;
+import br.com.nutriCenter.model.Login;
+import br.com.nutriCenter.model.Nutricionista;
+import br.com.nutriCenter.model.Paciente;
+import br.com.nutriCenter.model.Usuario;
 
 @Service
 public class LoginService {
@@ -28,17 +26,21 @@ public class LoginService {
     private EnverEmailService emailService;
 
     public Usuario logarUsuario(Login login) throws Exception {
-        if(this.nutricionistaService.searchForEmail(login.getUserName()))
-            return nutricionistaService.findByEmail(login).get();
-
-        if(this.pacienteService.searchForEmail(login.getUserName()))
-            return pacienteService.findByEmail(login).get();
-
-        if(this.administradorService.searchForEmail(login.getUserName()))
-            return administradorService.findByEmail(login).get();
-
-
-    throw new ObjectNotFoundException();
+    	
+    	switch (login.getNivelDeAcesso()) {
+		case 1:
+			if(this.nutricionistaService.searchForEmail(login.getUserName()))
+				return pacienteService.findByEmail(login).get();
+		case 2:
+			if(this.pacienteService.searchForEmail(login.getUserName()))
+				return nutricionistaService.findByEmail(login).get();
+		case 3:
+       		if(this.administradorService.searchForEmail(login.getUserName()))
+       			return administradorService.findByEmail(login).get();
+		default:
+			break;
+		}
+    	throw new ObjectNotFoundException();
     }
 
     public void recoveyPassword(String email) throws Exception{
