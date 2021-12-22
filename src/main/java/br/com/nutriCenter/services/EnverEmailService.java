@@ -9,7 +9,7 @@ import java.util.Random;
 @Service
 public class EnverEmailService {
 
-    private static final String SYMBOLS = "!@#$%¨&*()=+{}[]^/?;:.,-_";
+    private static final String SYMBOLS = "!@#$%&*()=+{}[]/?";
     private static final String CAP_LETTER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String NUMBERS = "0123456789";
     private static final String SMALL_LETTER = "abcdefghijklmnopqrstuvxyz";

@@ -36,7 +36,7 @@ public class LoginResource {
     @PostMapping("/recuperarSenha")
     public ResponseEntity<?> recuperarPassword(@RequestBody Login login){
         try {
-            loginService.recoveyPassword(login.getUserName());
+            loginService.recoveyPassword(login);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (ObjectNotFoundException error){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

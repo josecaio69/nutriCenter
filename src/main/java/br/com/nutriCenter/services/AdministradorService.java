@@ -3,16 +3,15 @@ package br.com.nutriCenter.services;
 import java.util.List;
 import java.util.Optional;
 
-import br.com.nutriCenter.exception.LoginInvalidException;
-import br.com.nutriCenter.exception.PasswordInvalidException;
-import br.com.nutriCenter.model.Login;
-import br.com.nutriCenter.model.Nutricionista;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.nutriCenter.exception.LoginInvalidException;
 import br.com.nutriCenter.exception.ObjectNotFoundException;
+import br.com.nutriCenter.exception.PasswordInvalidException;
 import br.com.nutriCenter.model.Administrador;
+import br.com.nutriCenter.model.Login;
 import br.com.nutriCenter.repository.AdministradorRepository;
 /**
  * @author José Caio
