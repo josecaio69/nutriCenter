@@ -65,8 +65,8 @@ public class AvaliacaoNutricionalResourceTeste {
 		objectMapper = new ObjectMapper();
 		anamnese1 = generateAnamnese("Avaliacao de anamnese", 1L, "Anamnese", "anamnese");
 
-		antropometrica1 = generateAntropometrica(1.75f, "Descrição", true, 1L, "Antropometrica", 80, 70, 24, 23, 44, 45,
-				23, 45, 56, 23, 57, 43, 23, 34, 78, 34, 67, 67, 45, 76, 34, "Avaliacao antropometrica");
+		antropometrica1 = generateAntropometrica(1.75f, "Descrição", true, 1L, "Antropometrica", 1.65f , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
 
 		gastoEnergetico1 = generateEnergetico(175, "descricao", 1L, "corrida", 75, "12342020",
 				"Avaliacao de gasto energetico", "Gasto Energetico");
@@ -145,8 +145,8 @@ public class AvaliacaoNutricionalResourceTeste {
 	public void deveRetornarErroAoTentarCadastrarAntropometricaSemTituloTeste() throws Exception {
 
 		AvaliacaoAntropometrica antropometrica;
-		antropometrica = generateAntropometrica(1.75f, "Descrição", true, 1L, "Antropometrica", 80, 70, 24, 23, 44, 45,
-				23, 45, 56, 23, 57, 43, 23, 34, 78, 34, 67, 67, 45, 76, 34, "");
+		antropometrica = generateAntropometrica(1.75f, "Descrição", true, 1L, "Antropometrica", 1.65f , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "");
 		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
 				.content(objectMapper.writeValueAsString(antropometrica))
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
@@ -157,14 +157,287 @@ public class AvaliacaoNutricionalResourceTeste {
 	public void deveRetornarErroAoTentarCadastrarAntropometricaSemTipoTeste() throws Exception {
 
 		AvaliacaoAntropometrica antropometrica;
-		antropometrica = generateAntropometrica(1.75f, "Descrição", true, 1L, "", 80, 70, 24, 23, 44, 45, 23, 45, 56,
-				23, 57, 43, 23, 34, 78, 34, 67, 67, 45, 76, 34, "Avaliação Antropometrica");
+		antropometrica = generateAntropometrica(1.75f, "Descrição", true, 1L, "", 1.65f , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
 		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
 				.content(objectMapper.writeValueAsString(antropometrica))
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
 	}
 
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComAlturamaiorquetres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "Antropometrica", 1.65f , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComPesomaiorqueSeicentos() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 601 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComAbdomenMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 4f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComAntebracoDireitoMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 4f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComAntebracoEsquerdoMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 4f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComBracoDireitoContraidoMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 4f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComBracoDireitoRelaxadoMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 4f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComBracoEsquerdoContraidoMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				4f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComBracoEsquerdoRelaxadoMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 4f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComCinturaMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 4f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComCoxaDireitaMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 4f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComCoxaEsquerdaMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 4f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComCoxaProximalDireitaMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 4f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComCoxaProximalEsquerdaMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 4f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComOmbroMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 4f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComPanturrilhaDireitaMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 4f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComPanturrilhaEsquerdaMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 4f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComPeitoralMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 4f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComPescocoMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 4f, 1.65f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComPunhoDireitoMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 4f, 1.65f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComPunhoEsquerdoMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f , 4f, 1.65f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+
+	
+	@Test
+	public void deveRetornarErroAoTentarCadastrarAntropometricaComQuadrilMaiorQueTres() throws Exception {
+
+		AvaliacaoAntropometrica antropometrica;
+		antropometrica = generateAntropometrica(4f, "Descrição", true, 1L, "antropometrica", 89 , 1.65f, 1.65f, 1.65f, 1.65f, 1.65f,
+				1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f, 1.65f , 1.65f, 4f, 1.65f, "Avaliacao antropometrica");
+		mockMvc.perform(post(urlBase + "/antropometrica" + "/{idPaciente}", 1L)
+				.content(objectMapper.writeValueAsString(antropometrica))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+	}
+	
+	
 	@Test
 	public void deveRetornarErroAoTentarCadastrarEnergeticaSemTituloTeste() throws Exception {
 
