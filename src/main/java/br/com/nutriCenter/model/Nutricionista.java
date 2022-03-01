@@ -12,6 +12,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tb_nutricionista")
 public class Nutricionista extends Usuario {
+	
+	
+	
+
+	public Nutricionista() {
+		super.setNivelDeAcesso(2);
+	}
 
 	private static final long serialVersionUID = 1L;
 

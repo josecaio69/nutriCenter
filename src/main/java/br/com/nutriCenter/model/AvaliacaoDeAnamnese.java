@@ -19,7 +19,7 @@ public class AvaliacaoDeAnamnese extends AvaliacaoNutricional {
 
 
 	@NotNull(message = "Informe a descrição da avaliação")
-	@Column(name = "descricao")
+	@Column(name = "descricao", columnDefinition = "TEXT")
 	private String descricao;
 	
 	public String getDescricao() {

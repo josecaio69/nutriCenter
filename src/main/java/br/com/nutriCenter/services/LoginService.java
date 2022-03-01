@@ -28,12 +28,16 @@ public class LoginService {
 		case 1:
 			if (this.pacienteService.searchForEmail(login.getUserName()))
 				return pacienteService.findByEmail(login).get();
+			break;
+			
 		case 2:
 			if (this.nutricionistaService.searchForEmail(login.getUserName()))
 				return nutricionistaService.findByEmail(login).get();
+			break;
 		case 3:
 			if (this.administradorService.searchForEmail(login.getUserName()))
 				return administradorService.findByEmail(login).get();
+			break;
 		default:
 			break;
 		}
